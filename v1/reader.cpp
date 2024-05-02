@@ -14,7 +14,8 @@ vector<Region> read_csv(const string& fname){
 
         if(getline(ss, p, ',') && getline(ss, e, ',') && getline(ss, r, ',') && getline(ss, c, ',')){
             Region region;
-            region.region = r;
+            if(r.front() == '"' && r.back() == '"') region.region = "UNKNOWN";
+            else region.region = r;
             region.period = p;
             region.cnt = stoi(c);
             region.event = (e == "Births");
