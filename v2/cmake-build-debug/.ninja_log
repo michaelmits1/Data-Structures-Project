@@ -1,0 +1,12 @@
+# ninja log v5
+2	424	1714755421723140976	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+1	395	1714756478296315858	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+1	426	1714755421723140976	CMakeFiles/untitled.dir/reader.cpp.o	5b0656fa80ea373
+395	476	1714756478376316229	untitled	182f63f4c7b54e63
+1	367	1714482374894694764	CMakeFiles/untitled.dir/converter.cpp.o	3144a69b71de062b
+0	399	1714756700417337753	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+1	405	1714756700425337738	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+1	408	1714756700425337738	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+408	494	1714756700509337583	untitled	63e6ede03de12015
+1	393	1714756728657289586	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+393	470	1714756728733289467	untitled	63e6ede03de12015
