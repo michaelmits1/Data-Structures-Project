@@ -22,7 +22,9 @@ int main() {
     //mergeSort(births, 0, size/2 -1);
     //quicksort(births, 0, size/2 -1);
 
-    Region* sorted_deaths = countsort(deaths, size/2 -1);
+    //Region* sorted_deaths = countsort(deaths, size/2 -1);
+
+    heapsort(births, size/2 -1);
 
     print_array_regions(sorted_deaths, size/2 -1);
     return 0;
