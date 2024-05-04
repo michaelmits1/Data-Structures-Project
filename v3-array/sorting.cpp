@@ -94,3 +94,32 @@ Region* countsort(Region *inlist, int size){
     }
     return outlist;
 }
+
+//Heapsort (MaxHeap)
+void heapify(Region* list, int size, int root){
+    int largest = root;
+    int l = 2*root + 1;     //left child
+    int r = 2*root + 2;     //right child
+
+    //left child > root
+    if(l < size && list[l].cnt > list[largest].cnt) largest = l;
+
+    //right child > largest(root)
+    if(r < size && list[r].cnt > list[largest].cnt) largest = r;
+
+    if(largest != root){
+        swap(list[root], list[largest]);
+        heapify(list, size, largest);
+    }
+}
+
+void heapsort(Region* list, int size){
+    for(int i=size/2 -1; i>=0; --i){
+        heapify(list, size, i);
+    }
+
+    for(int i = size-1; i>0; --i){
+        swap(list[0], list[i]);
+        heapify(list, i, 0);
+    }
+}
