@@ -28,6 +28,8 @@ void quicksort(Region *list, int left, int right);
 
 Region* countsort(Region *inlist, int size);
 
+void heapify(Region* list, int size, int root);
+void heapsort(Region* list, int size);
 
 #endif //REGION_H
 
