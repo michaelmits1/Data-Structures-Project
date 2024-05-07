@@ -1,0 +1,27 @@
+# ninja log v5
+1	402	1715095523160472968	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+1	422	1715095523180473030	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+1	378	1715095570416619966	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+1	426	1714755421723140976	CMakeFiles/untitled.dir/reader.cpp.o	5b0656fa80ea373
+1	345	1715120981721889120	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+345	422	1715120981797889375	untitled	2952a090ae787649
+1	367	1714482374894694764	CMakeFiles/untitled.dir/converter.cpp.o	3144a69b71de062b
+1	327	1715121041078086803	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+327	408	1715121041154087054	untitled	2952a090ae787649
+1	343	1715121431426191475	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+343	422	1715121431502190251	untitled	2952a090ae787649
+1	391	1715121598243865257	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+1	407	1715121598259865065	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+1	416	1715121598267864969	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+0	420	1715121598271864921	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+421	496	1715121598347864009	untitled	2952a090ae787649
+2	361	1715122062279979575	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+1	364	1715122062283979552	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+1	365	1715122062283979552	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+1	380	1715122062299979461	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+380	457	1715122062371979052	untitled	2952a090ae787649
+2	354	1715122774361337545	CMakeFiles/untitled.dir/searching.cpp.o	9b4e526e6661521f
+2	368	1715122774373337515	CMakeFiles/untitled.dir/sorting.cpp.o	585f2d2eaa0bef57
+1	385	1715122774389337476	CMakeFiles/untitled.dir/main.cpp.o	6a26c6a9ca3d10c3
+1	392	1715122774397337456	CMakeFiles/untitled.dir/filehandler.cpp.o	de78df3827082a6d
+392	469	1715122774473337269	untitled	2952a090ae787649
