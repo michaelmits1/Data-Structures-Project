@@ -43,6 +43,7 @@ void read_csv(Region regions[],const string& filename) {
 
 void print_array_regions(Region regions[],int size){
     for (int i=0;i<size;i++) {
+        cout << i+1 << ". ";
         cout << "Period: " << regions[i].period << ", ";
         cout << "Event: " << (regions[i].event ? "Births" : "Deaths") << ", ";
         cout << "Region: " << regions[i].region << ", ";

@@ -25,13 +25,15 @@ int main() {
     }
 
     //mergeSort(births, 0, size/2 -1);
-    quicksort(births, 0, size_births);
+    quicksort(births, 0, size_births-1);
     //Region* sorted_deaths = countsort(deaths, size/2 -1);
     //heapsort(births, size/2 -1);
 
 
-    string birth_regions[100];
+    Region birth_regions[100];
     find_regions(births, size_births, birth_regions);
+
+    //cout << access(births, 777, size_births);
 
     print_array_regions(births, size_births);
 

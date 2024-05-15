@@ -1,11 +1,12 @@
 #ifndef REGION_H
 #define REGION_H
 #include "string"
-#include "vector"
+//#include "vector"
 #include "iostream"
 #include "fstream"
 #include "sstream"
 #include "algorithm"
+#include "cmath"
 using namespace std;
 
 struct Region{
@@ -33,8 +34,10 @@ void heapify(Region* list, int size, int root);
 void heapsort(Region* list, int size);
 
 //Searching
-int interpolation_search(Region *list, int key, int size);
-Region* find_regions(Region *list, int size, string found[]);
+int interpolation_search(Region *list, int key, int size, int left, int right);
+Region* find_regions(Region *list, int size, Region found[]);
+
+bool access(Region* list, int key, int size);
 
 
 #endif //REGION_H
