@@ -30,20 +30,24 @@ Region* find_regions(Region *list, int size, Region found[]){
     int p2 = b2;
 
     int pos1 = interpolation_search(list, b1, size, 0, size-1);
-    int pos2 = interpolation_search(list, b2, size, 0, size-1);
-
     while(pos1 == -1){
         pos1 = interpolation_search(list, p1, size, 0, size-1);
         p1++;
-        while(pos2 == -1) {
-            pos2 = interpolation_search(list, p2, size, 0, size-1);
-            p2--;
-        }
+    }
+
+    int pos2 = interpolation_search(list, p2, size, 0, size-1);
+    while(pos2 == -1) {
+        pos2 = interpolation_search(list, p2, size, 0, size-1);
+        p2--;
     }
 
     for(int i=pos1; i<=pos2; ++i){
         found[count++] = list[i];
     }
+    while(list[pos2+1].cnt == list[pos2].cnt && stoi(list[pos2+1].period) != stoi(list[pos2-1].period)){
+        found[count++] = list[pos2++];
+    }
+
     if (count==0) {
         cout << "No regions found within the specified birth count range.\n";
     } else {

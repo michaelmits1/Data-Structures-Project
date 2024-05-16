@@ -28,3 +28,11 @@ there are 2 cases where count = 21
 idfk...
 
 +++ TODO: Πρέπει να κρατήσω το άθροισμα των births/deaths για κάθε region απαλείφοντας τον χρόνο.
+
+#BUG FIXED FOR REPEATED CNT OCCURRENCES: 
+    Εκτελείτε κανονικά ο αλγόριθμος, και αφού προστεθούν ολα τα στοιχεία στο 
+    found[] array τότε τρέχει μια while() για όσο στο pos2++ έχουμε ίδιο cnt_birth/death ΑΛΛΑ διαφορετική χρονιά
+    προσθέτοντάς τα στο array.
+
+#+++ TODO:
+    i forgor
