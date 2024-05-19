@@ -1,0 +1,144 @@
+#include "region.h"
+using namespace std;
+
+
+int interpolation_search(Region* arr,int left,int right,int key){
+    
+    int medium = left + (((key - arr[left].cnt) * (right - left)) / (arr[right].cnt - arr[left].cnt));
+    if (arr[medium].cnt==key) return medium;
+    else if (arr[medium].cnt>key) {
+        if (right<=left)return -1 ;
+       return  interpolation_search(arr,left,medium-1,key);//search left
+    }
+    else if (arr[medium].cnt<key){
+         if (right<=left)return -1;
+        return  interpolation_search(arr,medium+1,right,key);//search right
+    }
+}
+
+int bin_search(Region* arr,int left,int right,int key){
+    int medium=(left+right)/2;
+    if (arr[medium].cnt==key) return medium;
+    else if (arr[medium].cnt>key) {
+        if (right<=left)return -1 ;
+       return bin_search(arr,left,medium-1,key);//search left
+    }
+    else if (arr[medium].cnt<key){
+         if (left==right)return -1;
+        return bin_search(arr,medium+1,right,key);//search right
+    }
+}
+
+void region_bin_search(Region* arr,int size,int b1,int b2){
+    int start_index=-1;
+    int end_index=-1;
+    while(b1<b2 && start_index==-1){
+        start_index=bin_search(arr,0,size-1,b1);
+        b1++;
+    }
+    while(b1<b2 && end_index==-1){
+        end_index=bin_search(arr,0,size-1,b2);
+        b2--;
+    }
+    print_part_of_array(arr,start_index,end_index,size);
+
+}
+
+void region_inter_search(Region* arr,int size,int b1,int b2){
+    int start_index=-1;
+    int end_index=-1;
+    while(b1<b2 && start_index==-1){
+        start_index=interpolation_search(arr,0,size-1,b1);
+        b1++;
+    }
+    while(b1<b2 && end_index==-1){
+        end_index=interpolation_search(arr,0,size-1,b2);
+        b2--;
+    }
+    print_part_of_array(arr,start_index,end_index,size);
+
+}
+
+
+
+int bis(Region* list, int size , int key){
+    int left = 0;
+    int right = size-1;
+    int len = right - left;
+    int next = left + (len * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
+
+    while(key != list[next].cnt){
+        int i=0;
+        len = right - left;
+
+        //apeutheias grammiki anazitisi
+        if(len <= 5){
+            while(key != list[left].cnt) left++;
+            return left;
+//            for(int j=0; j < len; ++j){
+//                if(list[left + j].cnt == key) return next; //found
+//            }
+        }
+
+        else if(key > list[next].cnt){
+            i=0;
+            while(key > list[next + i*(int)sqrt(len) - 1].cnt){
+                ++i;
+                right = next + (i+1)*(int)sqrt(len);
+                left = next + i*(int)sqrt(len);
+            }
+        }
+        else if(key < list[next].cnt){
+            i=1;
+            while(key < list[next - i*(int)sqrt(len) + 1].cnt){
+                ++i;
+                right = next - (i-1)*(int) sqrt(len);
+                left = next - i*(int) sqrt(len);
+            }
+        }
+        next = left + ((right - left) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
+    }
+    //found
+    if(key == list[next].cnt) return next;
+    // :(
+    else return -1;
+}
+
+
+bool access(Region* list, int key, int size){
+    int left = 1;
+    int right = size;
+    int len = right - left + 1;
+    int next = len * ((key - list[left].cnt)/(list[right].cnt - list[left].cnt)) + 1;
+
+    while(key != list[next].cnt){
+        int i=0;
+        len = right - left + 1;
+
+        //apeutheias grammiki anazitisi
+        if(len <= 5){
+            for(int j=0; j < len; ++j){
+                if(list[j].cnt == key) return true; //found
+            }
+        }
+
+        if(key > list[next].cnt){
+            while(key > list[next + i*(int)sqrt(len) - 1].cnt) ++i;
+
+            right = next + i*(int) sqrt(len);
+            left = next + (i-1)*(int) sqrt(len);
+        }
+        else if(key < list[next].cnt){
+            while(key < list[next - i*(int)sqrt(len) + 1].cnt) ++i;
+
+            right = next - (i-1)*(int) sqrt(len);
+            left = next - i*(int) sqrt(len);
+        }
+
+        next = left + len*((key - list[left].cnt)/(list[right].cnt - list[left].cnt)) - 1;
+    }
+
+    //found
+    if(key == list[next].cnt) return true;
+    else return false;
+}
