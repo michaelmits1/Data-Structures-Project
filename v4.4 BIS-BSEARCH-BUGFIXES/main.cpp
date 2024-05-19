@@ -1,5 +1,7 @@
 #include "region.h"
+#include "chrono"
 using namespace std;
+using namespace chrono;
 
 int main() {
     string fname = "/home/mmitsainas/CLionProjects/dsproj/input.csv";
@@ -8,7 +10,7 @@ int main() {
     Region regions[size];
     read_csv(regions, fname);
 
-    int size_births = get_arrsize_event(regions, size); //megethos tou pinaka genniseon
+    int size_births = get_arrsize_event(regions, size+1); //megethos tou pinaka genniseon
 
     //Orismos barray, darray arrays
     int i=0, j=0;
@@ -31,7 +33,12 @@ int main() {
 
 
     Region birth_regions[100];
-    find_regions_bis(barray, size_births, birth_regions);
+    //find_regions_bis(barray, size_births, birth_regions);
+    auto start = high_resolution_clock::now();
+    int ans = bis(barray, size_births, 7548);
+    auto stop = high_resolution_clock::now();
+    auto dur = duration_cast<nanoseconds>(stop - start);
+    cout << ans << " Time: " << dur.count() << endl;
 
     //cout << access(barray, 777, size_births);
 

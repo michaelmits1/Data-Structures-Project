@@ -45,30 +45,35 @@ int bis(Region* list, int size , int key){
 
     while(key != list[next].cnt){
         int i=0;
-        len = right - left + 1;
+        len = right - left;
 
         //apeutheias grammiki anazitisi
         if(len <= 5){
-            for(int j=0; j < len; ++j){
-                if(list[j].cnt == key) return next; //found
+            while(key != list[left].cnt) left++;
+            return left;
+//            for(int j=0; j < len; ++j){
+//                if(list[left + j].cnt == key) return next; //found
+//            }
+        }
+
+        else if(key > list[next].cnt){
+            i=0;
+            while(key > list[next + i*(int)sqrt(len) - 1].cnt){
+                ++i;
+                right = next + (i+1)*(int)sqrt(len);
+                left = next + i*(int)sqrt(len);
             }
         }
-
-        if(key > list[next].cnt){
-            while(key > list[next + i*(int)sqrt(len) - 1].cnt) ++i;
-
-            right = next + i*(int) sqrt(len);
-            left = next + (i-1)*(int) sqrt(len);
-        }
         else if(key < list[next].cnt){
-            while(key < list[next - i*(int)sqrt(len) + 1].cnt) ++i;
-
-            right = next - (i-1)*(int) sqrt(len);
-            left = next - i*(int) sqrt(len);
+            i=1;
+            while(key < list[next - i*(int)sqrt(len) + 1].cnt){
+                ++i;
+                right = next - (i-1)*(int) sqrt(len);
+                left = next - i*(int) sqrt(len);
+            }
         }
-        next = left + static_cast<int>((len * (static_cast<double>(key - list[left].cnt) / (list[right].cnt - list[left].cnt))));
+        next = left + ((right - left) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
     }
-
     //found
     if(key == list[next].cnt) return next;
     // :(
