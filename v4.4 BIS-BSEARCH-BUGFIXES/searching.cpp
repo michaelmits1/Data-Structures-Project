@@ -44,32 +44,29 @@ int bis(Region* list, int size , int key){
     int next = left + (len * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
 
     while(key != list[next].cnt){
-        int i=0;
+        int i;
         len = right - left;
 
         //apeutheias grammiki anazitisi
         if(len <= 5){
             while(key != list[left].cnt) left++;
-            return left;
-//            for(int j=0; j < len; ++j){
-//                if(list[left + j].cnt == key) return next; //found
-//            }
+            next = left;
         }
 
-        else if(key > list[next].cnt){
-            i=0;
+        if(key > list[next].cnt){
+            i=1;
             while(key > list[next + i*(int)sqrt(len) - 1].cnt){
-                ++i;
                 right = next + (i+1)*(int)sqrt(len);
                 left = next + i*(int)sqrt(len);
+                ++i;
             }
         }
         else if(key < list[next].cnt){
             i=1;
             while(key < list[next - i*(int)sqrt(len) + 1].cnt){
-                ++i;
                 right = next - (i-1)*(int) sqrt(len);
                 left = next - i*(int) sqrt(len);
+                ++i;
             }
         }
         next = left + ((right - left) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
@@ -97,7 +94,7 @@ Region* find_regions(Region *list, int size, Region found[]){
     int pos2 = interpolation_search(list, p2, 0, size - 1);
     while(pos2 == -1){
         p2--;
-        pos2 = interpolation_search(list, p2, pos1, size - 1);
+        pos2 = interpolation_search(list, p2, 0, size - 1);
     }
 
     for(int i=pos1; i<=pos2; ++i){
@@ -129,16 +126,16 @@ Region* find_regions_bis(Region *list, int size, Region found[]){
     int p1 = b1;
     int p2 = b2;
 
-    int pos1 = bis(list, size, b1);
+    int pos1 = bis(list, size-1, p1);
     while(pos1 == -1){
-        pos1 = bis(list, size, p1);
         p1++;
+        pos1 = bis(list, size-1, p1);
     }
 
-    int pos2 = bis(list, size, b2);
-    while(pos2 == -1) {
-        pos2 = bis(list, size, p2);
+    int pos2 = bis(list, size-1, p2);
+    while(pos2 == -1){
         p2--;
+        pos2 = bis(list, size-1, p2);
     }
 
     for(int i=pos1; i<=pos2; ++i){
@@ -147,6 +144,7 @@ Region* find_regions_bis(Region *list, int size, Region found[]){
     while(list[pos2+1].cnt == list[pos2].cnt && stoi(list[pos2+1].period) != stoi(list[pos2-1].period)){
         found[count++] = list[pos2++];
     }
+
 
     if (count==0) {
         cout << "No regions found within the specified birth count range.\n";

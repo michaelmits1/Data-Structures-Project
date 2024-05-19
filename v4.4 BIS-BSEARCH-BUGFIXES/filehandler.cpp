@@ -3,7 +3,6 @@ using namespace std;
 
 void read_csv(Region regions[],const string& filename) {
     int i=0;
-    int size=0;
     ifstream file(filename);
     string line;
 
@@ -63,7 +62,6 @@ int get_arrsize(const string& filename){
     }
 
     while (getline(file, line)) {
-        string linecopy=line;
         stringstream ss(line);
         string period;
         getline(ss, period, ',');

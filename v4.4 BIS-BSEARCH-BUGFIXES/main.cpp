@@ -33,12 +33,12 @@ int main() {
 
 
     Region birth_regions[100];
-    //find_regions_bis(barray, size_births, birth_regions);
-    auto start = high_resolution_clock::now();
-    int ans = bis(barray, size_births, 7548);
-    auto stop = high_resolution_clock::now();
-    auto dur = duration_cast<nanoseconds>(stop - start);
-    cout << ans << " Time: " << dur.count() << endl;
+    find_regions(barray, size_births, birth_regions);
+//    auto start = high_resolution_clock::now();
+//    int ans = bis(barray, size_births, 64344);
+//    auto stop = high_resolution_clock::now();
+//    auto dur = duration_cast<nanoseconds>(stop - start);
+//    cout << ans << " Time: " << dur.count() << endl;
 
     //cout << access(barray, 777, size_births);
 
