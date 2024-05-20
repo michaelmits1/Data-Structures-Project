@@ -33,14 +33,14 @@ int main() {
     //Region* sorted_deaths = countsort(darray, size/2 -1);
     //heapsort(barray, size/2 -1);
 //    for(int p=0; p < size_births; p++){
-//        cout << bin_inter_search(barray,size_births,barray[p].cnt) << "\n";
+//        cout <<bin_inter_search(barray,size_births,barray[p].cnt) << "\n";
 //    }
 
     Region birth_regions[100];
-    //find_regions_inter(barray, size_births, birth_regions);
+    //find_regions_bin_inter(barray, size_births, birth_regions);
 
 
-    int ans = bin_inter_search(barray, size_births, 7);
+    int ans = bin_inter_search(barray, size_births, 18);
     cout << ans;
 
     //cout << access(barray, 777, size_births);

@@ -37,44 +37,36 @@ int interpolation_search(Region *list, int key, int left, int right) {
 }
 
 int bin_inter_search(Region* list, int size , int key){
-    int left = 0;
-    int right = size-1;
-    int len = right - left;
-    int next = left + (len * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
-    int step;
+    int left = 1;
+    int right = size -1;
+    int len = right - left + 1;
+    int next = len * ((key - list[left].cnt) / (list[right].cnt - list[left].cnt));
 
     while(key != list[next].cnt){
-        int i;
-        len = right - left;
+        int i=0;
+        len = right - left + 1;
 
-        //apeutheias grammiki anazitisi
+        //if(key == list[next].cnt) return next;
+
         if(len <= 5){
             while(key != list[left].cnt) left++;
             next = left;
+            return next;
         }
 
         if(key > list[next].cnt){
-            i=1;
-            step = (int)sqrt(len);
-            while(key > list[next + i*step - 1].cnt){
-                right = next + (i+1)*step;
-                left = next + i*step;
-                ++i;
-            }
+            while(key > list[next + i * (int)sqrt(len) - 1].cnt) ++i;
+            right = next + i * (int)sqrt(len);
+            left = next + (i-1) * (int)sqrt(len);
         }
         else if(key < list[next].cnt){
-            i=1;
-            while(key < list[next - i*step + 1].cnt){
-                right = next - (i-1)*step;
-                left = next - i*(int) sqrt(len);
-                ++i;
-            }
+            while(key < list[next - i * (int)sqrt(len) + 1].cnt) ++i;
+            right = next - (i-1) * (int)sqrt(len);
+            left = next - i * (int)sqrt(len);
         }
-        next = left + ((right - left) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
+        next = left + ((right - left + 1) * ((key - list[left].cnt) / (list[right].cnt - list[left].cnt))) - 1;
     }
-    //found
-    if(key == list[next].cnt) return next;
-    // :(
+    if(list[next].cnt == key) return next;
     else return -1;
 }
 
@@ -118,7 +110,6 @@ Region* find_regions_inter(Region *list, int size, Region found[]){
         }
     }
 }
-
 Region* find_regions_bin_inter(Region *list, int size, Region found[]){
     int count=0;
     int b1, b2;
@@ -127,16 +118,16 @@ Region* find_regions_bin_inter(Region *list, int size, Region found[]){
     int p1 = b1;
     int p2 = b2;
 
-    int pos1 = bin_inter_search(list, size - 1, p1);
+    int pos1 = bin_inter_search(list, size, p1);
     while(pos1 == -1){
         p1++;
-        pos1 = bin_inter_search(list, size - 1, p1);
+        pos1 = bin_inter_search(list, size, p1);
     }
 
-    int pos2 = bin_inter_search(list, size - 1, p2);
+    int pos2 = bin_inter_search(list, size, p2);
     while(pos2 == -1){
         p2--;
-        pos2 = bin_inter_search(list, size - 1, p2);
+        pos2 = bin_inter_search(list, size, p2);
     }
 
     for(int i=pos1; i<=pos2; ++i){

@@ -5,7 +5,7 @@
 #include "fstream"
 #include "sstream"
 #include "algorithm"
-#include "cmath"
+#include "math.h"
 using namespace std;
 
 struct Region{
