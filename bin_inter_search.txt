@@ -1,0 +1,38 @@
+int bin_inter_search(Region* list, int size , int key){
+    if (key>list[size-1].cnt) return -1;
+    int left = 0;
+    int right = size-1;
+    int len = right - left;
+    int next = 1+ ceil(len * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
+    int step;
+    while(key != list[next].cnt ){
+        int i=0;
+        len = right - left+1;
+         step=(int)sqrt(len);
+        //apeutheias grammiki anazitisi
+        if(len <= 5){
+           return bin_search(list,left,right,key);
+        }
+        if(key >=list[next].cnt){
+            while(key > list[next + i*step - 1].cnt){
+                ++i;
+                if(next+i*step-1>size-1) break;
+            }
+            right=next+i*step;
+            left=right-step;
+        }
+        else if(key < list[next].cnt){
+            while(key < list[next - i*step + 1].cnt){
+                ++i;
+                if(next-i*step-1<0) break;
+            }
+            right=next-(i-1)*step;
+            left=right-step;
+        }
+        next = left- 1 + ((right - left+1) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
+    }
+    //found
+    if(key == list[next].cnt) return next;
+    // :(
+    else return -1;
+}
