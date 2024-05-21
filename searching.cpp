@@ -108,7 +108,7 @@ int bin_inter_search(Region* list, int size , int key){
         else if(key < list[next].cnt){
             while(key < list[next - i*step + 1].cnt){
                 ++i;
-                if(next-i*step-1<0) break;
+                if(next-i*step+1<0) break;
             }
             right=next-(i-1)*step;
             left=right-step;
@@ -123,6 +123,7 @@ int bin_inter_search(Region* list, int size , int key){
 
 int bin_inter_extented_search(Region* list, int size , int key){
     if (key>list[size-1].cnt) return -1;
+    //if (key==list[size-1].cnt) return  size-1;
     int left = 0;
     int right = size-1;
     int len = right - left+1;
@@ -133,16 +134,23 @@ int bin_inter_extented_search(Region* list, int size , int key){
         len = right - left+1;
          step=(int)sqrt(len);
         //apeutheias grammiki anazitisi
-        if(len <= 5){
+        if(len <=10){
            return bin_search(list,left,right,key);
         }
+        //right subarray
         if(key >=list[next].cnt){
-            while(key > list[next + i*step - 1].cnt){
+            while(key > list[next + i*step-1].cnt){
                 i=2*i;
-                if(next+i*step-1>size-1) break;
+                if(next+i*step-1>size-1) {
+                    right=size-1;
+                    left=right-(i/2)*step;
+                    break;
+                }
             }
-            right=next+i*step;
-            left=next+(i/2)*step;
+            if(next+i*step-1<=size-1){
+                 right=next+i*step;
+                left=next+(i/2)*step;
+            }
             //bin-search
             while(step<right-left){
                 int medium=(left+right)/2;
@@ -154,26 +162,37 @@ int bin_inter_extented_search(Region* list, int size , int key){
                 else if(list[medium].cnt>key){
                     right=medium;
                 }
+               // if(left+step=r)
             }
 
         }
+
+        //left subarray
         else if(key < list[next].cnt){
-            while(key < list[next - i*step + 1].cnt){
+            while(key < list[next - i*step+1].cnt){
                 i=2*i;
-                if(next-i*step-1<0) break;
+                if(next+i*step+1>size-1) {
+                    right=left+(i/2)*step;
+                    left=0;
+                    break;
+                }
             }
-            right=next-(i/2)*step;
-            left=next-i*step;
-           while(step<right-left ){
+             if(next+i*step+1<=size-1){
+                right=next-(i/2)*step;
+                left=next-i*step;   
+             }
+            
+         while(step<right-left){
                 int medium=(left+right)/2;
                 if (medium>size-1 || medium <0) break;
                 if (list[medium].cnt==key) return medium;
                 else if(list[medium].cnt<key){
-                    left=medium;
+                    if(step!=right-left)left=medium;
                 }
                 else if(list[medium].cnt>key){
                     right=medium;
                 }
+               // if(left+step=r)
             }
         }
         next = left- 1 + ((right - left+1) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
