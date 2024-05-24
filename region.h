@@ -29,18 +29,26 @@ struct node {
 //File Handling
 node* read_csv_births(node* root, const string& filename);
 node* read_csv_regions(node* root,const string& filename);
+
 //Display menu
+void displayMenu(node* root);
 
 //Binary-tree
 node* newNode(Region data);
-node* insert_by_births(node* root, Region data);
-node* insert_by_region(node* root, Region data);
-
-node* search(node* root, int key);
-node* find_min(node* root);
-node* find_max(node* root);
-void traverseInOrder( node *temp);
+void traverseInOrder(node *temp);
 void print_node_equal_list(node* temp);
 void print_node(node *temp);
+
+//BIN_TREE_BIRTHS
+node* insert_by_births(node* root,Region data);
+node* search_by_births(node* root,int key);
+node* find_min(node* root);
+node* find_max(node* root);
+
+//BIN_TREE_REGION
+node* insert_by_region(node* root, Region data);
+node* search_by_region(node* root,string region);
+
+
 
 #endif
