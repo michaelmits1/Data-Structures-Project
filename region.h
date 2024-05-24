@@ -23,6 +23,7 @@ struct node {
     Region data;
     struct node *left;
     struct node *right;
+    struct node *equalnext;
 };
 
 //File Handling
@@ -34,6 +35,12 @@ node* read_csv_regions(node* root,const string& filename);
 node* newNode(Region data);
 node* insert_by_births(node* root, Region data);
 node* insert_by_region(node* root, Region data);
+
+node* search(node* root, int key);
+node* find_min(node* root);
+node* find_max(node* root);
 void traverseInOrder( node *temp);
+void print_node_equal_list(node* temp);
+void print_node(node *temp);
 
 #endif
