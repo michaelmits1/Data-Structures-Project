@@ -14,29 +14,50 @@ node* newNode(Region key) {
     return node;
 }
 
-node* insert(node* root,Region data){
+node* insert_by_births(node* root, Region data){
     //when you find empty child create a new node
     if (root==nullptr) return newNode(data);
+
     //search left subtree for empty node
-    if (data.cnt<=root->data.cnt) {
-        root->left=insert(root->left,data);
+    if (data.cnt <= root->data.cnt) {
+        root->left = insert_by_births(root->left, data);
         return root;
     }
+
+    //search right subtree for empty node
+    else {
+        root->right = insert_by_births(root->right, data);
+        return root;
+    }
+}
+node* insert_by_region(node* root, Region data){
+    //when you find empty child create a new node
+    if (root==nullptr) return newNode(data);
+
+    //search left subtree for empty node
+    if (data.region <= root->data.region) {
+        root->left = insert_by_region(root->left, data);
+        return root;
+    }
+
         //search right subtree for empty node
     else {
-        root->right=insert(root->right,data);
+        root->right = insert_by_region(root->right, data);
         return root;
     }
 }
 
+
 // Traverse Inorder
-void traverseInOrder( node *temp,int counter) {
+void traverseInOrder(node *temp) {
     if (temp != nullptr) {
-        traverseInOrder(temp->left,counter);
+        //left child
+        traverseInOrder(temp->left);
+        //parent
         cout <<" Period: " << temp->data.period << ", ";
-        cout << "Event: " << (temp->data.event ? "Births" : "Deaths") << ", ";
         cout << "Region: " << temp->data.region << ", ";
-        cout << "Count: " << temp->data.cnt << endl;
-        traverseInOrder(temp->right,counter);
+        cout << "Births: " << temp->data.cnt << endl;
+        //right child
+        traverseInOrder(temp->right);
     }
 }

@@ -26,12 +26,14 @@ struct node {
 };
 
 //File Handling
-node* read_csv(node* root,const string& filename);
+node* read_csv_births(node* root, const string& filename);
+node* read_csv_regions(node* root,const string& filename);
 //Display menu
 
 //Binary-tree
 node* newNode(Region data);
-node* insert(node* root,Region data);
-void traverseInOrder( node *temp,int counter);
+node* insert_by_births(node* root, Region data);
+node* insert_by_region(node* root, Region data);
+void traverseInOrder( node *temp);
 
 #endif
