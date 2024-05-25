@@ -18,7 +18,7 @@ int main() {
 
     //REGION BST
     //root=read_csv_regions(root,fname);
-    node* node = delete_node(root, "Manawatu-Wanganui region");
+    node* node = delete_node(root, "Tasman region");
     traverseInOrder(node);
 
     return 0;

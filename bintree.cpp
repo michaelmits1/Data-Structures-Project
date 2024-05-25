@@ -52,3 +52,11 @@ void print_node(node *temp){
          << "Region: " << temp->data.region << ", "
          << "Births: " << temp->data.cnt << endl;
 }
+
+void delete_equalnext_list(node* equalnext){
+    while (equalnext != nullptr){
+        node* temp = equalnext;
+        equalnext = equalnext->equalnext;
+        delete temp;
+    }
+}

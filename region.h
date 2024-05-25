@@ -38,6 +38,7 @@ node* newNode(Region data);
 void traverseInOrder(node *temp);
 void print_node_equal_list(node* temp);
 void print_node(node *temp);
+void delete_equalnext_list(node* equalnext);
 
 //BIN_TREE_BIRTHS
 node* insert_by_births(node* root,Region data);
