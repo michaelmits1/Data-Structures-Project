@@ -63,6 +63,7 @@ node* read_csv_births(node* root, const string& filename){
             }
 
             if(r.event) root= insert_by_births(root, r);
+
         }
 
     }

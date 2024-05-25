@@ -19,12 +19,8 @@ void traverseInOrder(node *temp) {
     if (temp != nullptr) {
         //left child
         traverseInOrder(temp->left);
-        //parent
-        cout <<" Period: " << temp->data.period << ", ";
-        cout << "Region: " << temp->data.region << ", ";
-        cout << "Births: " << temp->data.cnt << endl;
         //equals list
-        //print_node_equal_list(temp->equalnext);
+        print_node_equal_list(temp);
         //right child
         traverseInOrder(temp->right);
     }
@@ -55,5 +51,4 @@ void print_node(node *temp){
     cout << "Period: " << temp->data.period << ", "
          << "Region: " << temp->data.region << ", "
          << "Births: " << temp->data.cnt << endl;
-    //if(temp->equalnext != nullptr) print_node_equal_list(temp);
 }
