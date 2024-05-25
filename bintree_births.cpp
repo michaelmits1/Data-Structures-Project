@@ -34,16 +34,6 @@ node* search_by_births(node* root, int key){
     else return search_by_births(root->right, key);
 }
 
-node* find_min(node* root){
-    if(root->left == nullptr){
-        return find_min(root->left);
-    }
-}
-node* find_max(node* root){
-    if (root->right==nullptr) return root ;
-    return find_max(root->right);
-}
-
 void displayMenu(node* root) {
     int choice;
     node* key;
@@ -56,10 +46,10 @@ void displayMenu(node* root) {
         cin >> choice;
 
         if (choice == 1) {
-            key=find_min(root);
+            key = find_min(root);
             print_node_equal_list(key);
         } else if (choice == 2) {
-            key=find_max(root);
+            key = find_max(root);
             print_node_equal_list(key);
         }
     } while (choice != 3);

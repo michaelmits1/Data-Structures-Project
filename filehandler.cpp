@@ -108,7 +108,7 @@ node* read_csv_regions(node* root,const string& filename){
             } catch (const std::invalid_argument& e) {
                 continue; // Skip this line and continue to the next one
             }
-            if (r.event==1) root = insert_by_region(root, r);
+            if(r.event==1) root = insert_by_region(root, r);
         }
         else{
             string waste;
@@ -132,7 +132,7 @@ node* read_csv_regions(node* root,const string& filename){
                 continue; // Skip this line and continue to the next one
             }
 
-            if (r.event==1) root= insert_by_region(root, r);
+            if(r.event==1) root = insert_by_region(root, r);
         }
 
     }

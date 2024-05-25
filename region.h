@@ -2,7 +2,7 @@
 #define REGION_H
 
 #include "string"
-//#include "vector"
+#include "vector"
 #include "iostream"
 #include "fstream"
 #include "sstream"
@@ -47,8 +47,7 @@ node* find_max(node* root);
 
 //BIN_TREE_REGION
 node* insert_by_region(node* root, Region data);
-node* search_by_region(node* root,string region);
-
-
+node* search_by_region(node* root, string region);
+node* delete_node(node* root, const string& key);
 
 #endif
