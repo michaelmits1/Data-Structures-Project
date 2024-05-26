@@ -31,14 +31,14 @@ node* read_csv_births(node* root, const string& filename);
 node* read_csv_regions(node* root,const string& filename);
 
 //Display menu
-void displayMenu(node* root);
+void displayMenu_births(node* root);
+void displayMenu_region(node* root);
 
 //Binary-tree
 node* newNode(Region data);
 void traverseInOrder(node *temp);
 void print_node_equal_list(node* temp);
 void print_node(node *temp);
-void delete_equalnext_list(node* equalnext);
 
 //BIN_TREE_BIRTHS
 node* insert_by_births(node* root,Region data);
@@ -50,5 +50,7 @@ node* find_max(node* root);
 node* insert_by_region(node* root, Region data);
 node* search_by_region(node* root, string region);
 node* delete_node(node* root, const string& key);
+node* search_by_region_period(node* root);
+void edit_birth(node* root);
 
 #endif

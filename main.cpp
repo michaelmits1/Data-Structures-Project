@@ -18,8 +18,9 @@ int main() {
 
     //REGION BST
     //root=read_csv_regions(root,fname);
-    node* node = delete_node(root, "Tasman region");
-    traverseInOrder(node);
+//    node* node = delete_node(root, "Tasman region");
+//    traverseInOrder(node);
+    displayMenu_region(root);
 
     return 0;
 }

@@ -53,10 +53,4 @@ void print_node(node *temp){
          << "Births: " << temp->data.cnt << endl;
 }
 
-void delete_equalnext_list(node* equalnext){
-    while (equalnext != nullptr){
-        node* temp = equalnext;
-        equalnext = equalnext->equalnext;
-        delete temp;
-    }
-}
+

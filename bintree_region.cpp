@@ -77,6 +77,82 @@ node* delete_node(node* root, const string& key){
         return root;
     }
     return root;
+}
 
+node* search_by_region_period(node* root){
+    string period, region;
+    cout << "Region: ";
+    cin.ignore();
+    getline(cin, region);
 
+    cout << "\nPeriod: ";
+    cin >> period;
+
+    node* target = search_by_region(root, region);
+    if (target == nullptr) return nullptr;
+
+    if(target->equalnext == nullptr){
+        if(target->data.period != period) return nullptr;
+        else return target;
+    }
+    else if(target->data.period == period) return target;
+    else{
+        node* node = target->equalnext;
+        while(node != nullptr){
+            if(node->data.period == period) return node;
+            node = node->equalnext;
+        }
+    }
+}
+
+void edit_birth(node* root){
+    int new_cnt;
+    node* node = search_by_region_period(root);
+    print_node(node);
+    cout << "Current Birth count: " << node->data.cnt << "\nInsert new Birth count: ";
+    cin >> new_cnt;
+
+    node->data.cnt = new_cnt;
+    print_node(node);
+}
+
+void displayMenu_region(node* root){
+    int choice;
+    do {
+        cout << "----Menu----\n";
+        cout << "1. Display Binary Search Tree using INORDER Traversal\n";
+        cout << "2. Search BIRTH count by REGION and PERIOD\n";
+        cout << "3. Edit BIRTH count\n";
+        cout << "4. Delete node by REGION\n";
+        cout << "5. Exit\n";
+        cout << "Choose an option: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                traverseInOrder(root);
+                break;
+            case 2: {
+                node* temp = search_by_region_period(root);
+                print_node(temp);
+                break;
+            }
+            case 3:
+                edit_birth(root);
+                break;
+            case 4: {
+                string period, region;
+                cout << "Region: ";
+                cin.ignore();
+                getline(cin, region);
+                delete_node(root, region);
+                break;
+            }
+            case 5:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please choose a valid option.\n";
+        }
+    } while (choice != 5);
 }
