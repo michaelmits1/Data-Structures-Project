@@ -7,7 +7,7 @@ int main() {
     node *root = nullptr;
 
     //BIRTHS BST
-    root = read_csv_regions(root, fname);
+    root = read_csv_regions_avl(root, fname);
 
     //cout << "Inorder traversal:\n";
 
@@ -18,9 +18,9 @@ int main() {
 
     //REGION BST
     //root=read_csv_regions(root,fname);
-//    node* node = delete_node(root, "Tasman region");
-//    traverseInOrder(node);
-    displayMenu_region(root);
+    //node* node = delete_node(root, "Tasman region");
+    traverseInOrder(root);
+    //displayMenu_region(root);
 
     return 0;
 }

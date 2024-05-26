@@ -24,11 +24,13 @@ struct node {
     struct node *left;
     struct node *right;
     struct node *equalnext;
+    int height;
 };
 
 //File Handling
 node* read_csv_births(node* root, const string& filename);
 node* read_csv_regions(node* root,const string& filename);
+node* read_csv_regions_avl(node* root,const string& filename);
 
 //Display menu
 void displayMenu_births(node* root);
@@ -52,5 +54,15 @@ node* search_by_region(node* root, string region);
 node* delete_node(node* root, const string& key);
 node* search_by_region_period(node* root);
 void edit_birth(node* root);
+
+//AVL TREE
+int heightcalc(node* temp);
+int b_factor(node *temp);
+void rotate_left(node *a);
+void rotate_right(node *a);
+void balance_node(node* a);
+node* insert_by_region_avl(node* root, const Region& data);
+int geth(node* node);
+
 
 #endif

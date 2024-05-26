@@ -8,4 +8,5 @@ add_executable(Data_Structures_Project
         filehandler.cpp
         bintree_births.cpp
         bintree_region.cpp
-        bintree.cpp)
+        bintree.cpp
+        AVL.cpp)
