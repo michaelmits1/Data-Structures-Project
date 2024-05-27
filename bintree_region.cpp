@@ -34,6 +34,13 @@ node* search_by_region(node* root, string region){
     else return search_by_region(root->right, region);
 }
 
+void deletelist(node *temp){
+    if (temp!=nullptr){
+        deletelist(temp->equalnext);
+        delete temp;
+    }
+}
+
 node* delete_node(node* root, const string& key){
     if (root == nullptr) return root;
 
@@ -43,9 +50,8 @@ node* delete_node(node* root, const string& key){
 
     else{
 
-        if (root->equalnext != nullptr) {
-            root->equalnext = nullptr;
-            return delete_node(root, key);
+        if (root->equalnext != nullptr){
+            deletelist(root->equalnext);
         }
 
         if (root->left == nullptr){

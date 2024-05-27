@@ -15,12 +15,12 @@ int main() {
     //displayMenu(root);
     //print_node(item);
     //print_node_equal_list(item);
-    node* node = delete_node_avl(root, "Athens");
+    //node* node = delete_node_avl(root, "Athens");
 
     //REGION BST
     //root=read_csv_regions(root,fname);
     //node* node = delete_node(root, "Tasman region");
-    traverseInOrder(node);
+    traverseInOrder(root);
     //displayMenu_region(root);
 
     return 0;
