@@ -39,7 +39,7 @@ void displayMenu_region(node* root);
 //Binary-tree
 node* newNode(Region data);
 void traverseInOrder(node *temp);
-void print_node_equal_list(node* temp);
+void print_node_equal_tree(node* temp);
 void print_node(node *temp);
 
 //BIN_TREE_BIRTHS
@@ -55,6 +55,10 @@ void deletelist(node *temp);
 node* delete_node(node* root, const string& key);
 node* search_by_region_period(node* root);
 void edit_birth(node* root);
+
+//BIN_TREE_PERIOD
+node* search_by_period(node* root, const string period);
+node* insert_by_period(node* root, Region data);
 
 //AVL TREE
 int heightcalc(node* temp);

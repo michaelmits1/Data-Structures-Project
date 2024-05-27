@@ -17,7 +17,7 @@ node* insert_by_region(node* root, Region data){
         return root;
     }
     else {
-        root->equalnext = insert_by_region(root->equalnext,data);
+        root->equalnext = insert_by_period(root->equalnext, data);
         return root;
     }
 }

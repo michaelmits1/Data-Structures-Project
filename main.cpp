@@ -7,21 +7,21 @@ int main() {
     node *root = nullptr;
 
     //BIRTHS BST
-    root = read_csv_regions_avl(root, fname);
+    root = read_csv_regions(root, fname);
 
     //cout << "Inorder traversal:\n";
 
     //node* item = search_by_births(root,12);
     //displayMenu(root);
     //print_node(item);
-    //print_node_equal_list(item);
-    node* node = delete_node_avl(root, "West Coast region");
+    //print_node_equal_tree(item);
+    //node* node = delete_node_avl(root, "West Coast region");
 
     //REGION BST
     //root=read_csv_regions(root,fname);
     //node* node = delete_node(root, "Tasman region");
-    traverseInOrder(node);
-    //displayMenu_region(root);
+    //traverseInOrder(node);
+    displayMenu_region(root);
 
     return 0;
 }

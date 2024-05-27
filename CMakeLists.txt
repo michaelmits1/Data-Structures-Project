@@ -9,4 +9,5 @@ add_executable(Data_Structures_Project
         bintree_births.cpp
         bintree_region.cpp
         bintree.cpp
+        bintree_period.cpp
         AVL.cpp)

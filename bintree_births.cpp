@@ -6,7 +6,7 @@ node* insert_by_births(node* root, Region data){
     if (root == nullptr) return newNode(data);
 
     //search left subtree for empty node
-    if (data.cnt <= root->data.cnt){
+    if (data.cnt < root->data.cnt){
         root->left = insert_by_births(root->left, data);
         return root;
     }
@@ -47,10 +47,10 @@ void displayMenu_births(node* root){
 
         if (choice == 1) {
             key=find_min(root);
-            print_node_equal_list(key);
+            print_node_equal_tree(key);
         } else if (choice == 2) {
             key=find_max(root);
-            print_node_equal_list(key);
+            print_node_equal_tree(key);
         }
     } while (choice != 3);
 }

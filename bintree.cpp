@@ -20,7 +20,7 @@ void traverseInOrder(node *temp) {
         //left child
         traverseInOrder(temp->left);
         //equals list
-        print_node_equal_list(temp);
+        print_node_equal_tree(temp);
         //right child
         traverseInOrder(temp->right);
     }
@@ -36,11 +36,10 @@ node* find_max(node* root){
     else return find_max(root->right);
 }
 
-void print_node_equal_list(node* temp){
-    while(temp!=nullptr){
-        print_node(temp);
-        temp=temp->equalnext;
-    }
+void print_node_equal_tree(node* temp){
+    print_node(temp);
+    temp = temp->equalnext;
+    traverseInOrder(temp);
 }
 
 void print_node(node *temp){
@@ -52,5 +51,6 @@ void print_node(node *temp){
          << "Region: " << temp->data.region << ", "
          << "Births: " << temp->data.cnt << endl;
 }
+
 
 
