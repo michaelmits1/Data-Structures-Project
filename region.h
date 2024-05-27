@@ -63,6 +63,7 @@ void rotate_right(node *a);
 void balance_node(node* a);
 node* insert_by_region_avl(node* root, const Region& data);
 int geth(node* node);
+node* delete_node_avl(node* root, const string& key);
 
 
 #endif
