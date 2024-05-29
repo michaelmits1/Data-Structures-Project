@@ -51,14 +51,14 @@ node* find_max(node* root);
 //BIN_TREE_REGION
 node* insert_by_region(node* root, Region data);
 node* search_by_region(node* root, string region);
-void deletelist(node *temp);
+void delete_equalnext_bintree(node *temp);
 node* delete_node(node* root, const string& key);
 node* search_by_region_period(node* root);
 void edit_birth(node* root);
 
 //BIN_TREE_PERIOD
-node* search_by_period(node* root, const string period);
-node* insert_by_period(node* root, Region data);
+node* search_by_period(node* root, const string& period);
+node* insert_by_period(node* root, const Region& data);
 
 //AVL TREE
 int heightcalc(node* temp);

@@ -118,7 +118,7 @@ node* delete_node_avl(node* root, const string& key) {
     else{
 
         if (root->equalnext != nullptr){
-            deletelist(root->equalnext);
+            delete_equalnext_bintree(root->equalnext);
         }
 
         if (root->left == nullptr){

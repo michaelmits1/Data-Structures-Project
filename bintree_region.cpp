@@ -34,9 +34,10 @@ node* search_by_region(node* root, string region){
     else return search_by_region(root->right, region);
 }
 
-void deletelist(node *temp){
+void delete_equalnext_bintree(node *temp){
     if (temp!=nullptr){
-        deletelist(temp->equalnext);
+        delete_equalnext_bintree(temp->right);
+        delete_equalnext_bintree(temp->left);
         delete temp;
     }
 }
@@ -51,7 +52,7 @@ node* delete_node(node* root, const string& key){
     else{
 
         if (root->equalnext != nullptr){
-            deletelist(root->equalnext);
+            delete_equalnext_bintree(root->equalnext);
         }
 
         if (root->left == nullptr){
@@ -91,24 +92,21 @@ node* search_by_region_period(node* root){
     cin.ignore();
     getline(cin, region);
 
-    cout << "\nPeriod: ";
+    cout << "Period: ";
     cin >> period;
 
     node* target = search_by_region(root, region);
-    if (target == nullptr) return nullptr;
+    if(target == nullptr) return nullptr;
 
-    if(target->equalnext == nullptr){
-        if(target->data.period != period) return nullptr;
-        else return target;
+    if(target->data.period == period) return target;
+
+    else if(target->equalnext != nullptr){
+        node* target1 = search_by_period(target->equalnext, period);
+        if(target1 == nullptr) return nullptr;
+        else if(target1->data.period == period) return target1;
+        else return nullptr;
     }
-    else if(target->data.period == period) return target;
-    else{
-        node* node = target->equalnext;
-        while(node != nullptr){
-            if(node->data.period == period) return node;
-            node = node->equalnext;
-        }
-    }
+    else return nullptr;
 }
 
 void edit_birth(node* root){
