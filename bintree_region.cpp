@@ -34,13 +34,6 @@ node* search_by_region(node* root, string region){
     else return search_by_region(root->right, region);
 }
 
-void delete_equalnext_bintree(node *temp){
-    if (temp!=nullptr){
-        delete_equalnext_bintree(temp->right);
-        delete_equalnext_bintree(temp->left);
-        delete temp;
-    }
-}
 
 node* delete_node(node* root, const string& key){
     if (root == nullptr) return root;
@@ -102,6 +95,7 @@ node* search_by_region_period(node* root){
 
     else if(target->equalnext != nullptr){
         node* target1 = search_by_period(target->equalnext, period);
+
         if(target1 == nullptr) return nullptr;
         else if(target1->data.period == period) return target1;
         else return nullptr;

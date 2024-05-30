@@ -7,7 +7,7 @@ int main() {
     node *root = nullptr;
 
     //BIRTHS BST
-    root = read_csv_regions(root, fname);
+    root = read_csv_regions_avl(root, fname);
 
     //cout << "Inorder traversal:\n";
 
@@ -21,7 +21,25 @@ int main() {
     //root=read_csv_regions(root,fname);
     //node* node = delete_node(root, "Tasman region");
     //traverseInOrder(node);
-    displayMenu_region(root);
+    //displayMenu_region(root);
+
+    //avl
+    //traverseInOrder(root);
+//    delete_node_avl(root, "Auckland region");
+//    delete_node_avl(root, "Bay of Plenty region");
+//    delete_node_avl(root, "Tasman region");
+//    traverseInOrder(root);
+
+    // Print the AVL tree structure
+//    heightcalc(root);
+//    printBinaryTree(root,0,10);
+//    //cout<<"AFTER DELETION\n";
+//    root = delete_node_avl(root,"Nelson region");
+//    balance_node(root);
+//    //heightcalc(root);
+//    traverseInOrder(root);
+//    printBinaryTree(root,0,10);
+    displayMenu_avl(root);
 
     return 0;
 }

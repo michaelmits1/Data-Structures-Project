@@ -141,7 +141,7 @@ node* read_csv_regions(node* root,const string& filename){
     file.close();
     return root;
 }
-node* read_csv_regions_avl(node* root, const string& filename){
+node* read_csv_regions_avl(node* root,const string& filename) {
     ifstream file(filename);
     string line;
 

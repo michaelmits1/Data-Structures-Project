@@ -36,6 +36,15 @@ node* find_max(node* root){
     else return find_max(root->right);
 }
 
+void delete_equalnext_bintree(node *temp){
+    print_node(temp);
+    temp = temp->equalnext;
+    while (temp != nullptr) { // Stop recursion when equalnext is null
+        print_node(temp);
+        temp = temp->equalnext;
+    }
+}
+
 void print_node_equal_tree(node* temp){
     print_node(temp);
     temp = temp->equalnext;
@@ -49,7 +58,18 @@ void print_node(node *temp){
     }
     cout << "Period: " << temp->data.period << ", "
          << "Region: " << temp->data.region << ", "
-         << "Births: " << temp->data.cnt << endl;
+         << "Births: " << temp->data.cnt << ", "
+         << "Height: " << temp->height << ", "
+         << "BFACTOR: " << b_factor(temp) << endl;
+}
+void printBinaryTree(node* root, int space = 0, int height = 10) {
+    if (root == nullptr) return;
+    space += height;
+    printBinaryTree(root->right, space);
+    cout << endl;
+    for (int i = height; i < space; i++) cout << " ";
+    cout << root->data.region << "\n";
+    printBinaryTree(root->left, space);
 }
 
 

@@ -1,17 +1,17 @@
 #include "region.h"
 using namespace std;
 
-node* search_by_period(node* root, const string& period){
-    if(root == nullptr) return nullptr;
+node* search_by_period(node* root, const string& key){
+    if (root == nullptr) return nullptr ;
 
     //check if the node contains key
-    if(root->data.period == period) return root;
+    if(root->data.period == key) return root;
 
         //search left subtree
-    else if(period < root->data.period) return search_by_period(root->left, period);
+    else if(key < root->data.period) return search_by_period(root->left, key);
 
         //search right subtree
-    else return search_by_period(root->right, period);
+    else return search_by_period(root->right, key);
 }
 
 node* insert_by_period(node* root, const Region& data){
