@@ -6,11 +6,6 @@ int heightcalc(node* temp){
     return max(heightcalc(temp->left), heightcalc(temp->right)) + 1;
 }
 
-int geth(node* node){
-    if(node == nullptr) return -1;
-    else return node->height;
-}
-
 int b_factor(node *temp) {
     int left_height = -1;
     int right_height = -1;
@@ -98,7 +93,6 @@ void balance_node(node* a){
             heightcalc(a);
         }
     }
-    heightcalc(a);
 }
 
 node* insert_by_region_avl(node* root, const Region& data){
@@ -110,13 +104,15 @@ node* insert_by_region_avl(node* root, const Region& data){
         root->left = insert_by_region_avl(root->left, data);
     }
 
-        //search right subtree for empty node
+    //search right subtree for empty node
     else if(data.region > root->data.region) {
-        root->right = insert_by_region_avl(root->right,data);
+        root->right=insert_by_region_avl(root->right,data);
     }
     else if(data.region == root->data.region){
-       if(root->equalnext != nullptr) insert_by_region_avl(root->equalnext, data);
+        root->equalnext = insert_by_region_avl(root->equalnext,data);
+        return root;
     }
+
     balance_node(root);
     return root;
 }
@@ -168,7 +164,8 @@ void displayMenu_avl(node* root){
         cout << "2. Search BIRTH count by REGION and PERIOD\n";
         cout << "3. Edit BIRTH count\n";
         cout << "4. Delete node by REGION\n";
-        cout << "5. Exit\n";
+        cout << "5. Visual AVL tree\n";
+        cout << "6. Exit\n";
         cout << "Choose an option: ";
         cin >> choice;
 
@@ -193,11 +190,14 @@ void displayMenu_avl(node* root){
                 break;
             }
             case 5:
+                printBinaryTree(root, 0, 10);
+                break;
+            case 6:
                 cout << "Exiting...\n";
                 break;
             default:
                 cout << "Invalid choice. Please choose a valid option.\n";
         }
-    } while (choice != 5);
+    } while (choice != 6);
 }
 

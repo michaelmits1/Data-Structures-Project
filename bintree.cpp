@@ -19,7 +19,6 @@ void traverseInOrder(node *temp) {
     if (temp != nullptr) {
         //left child
         traverseInOrder(temp->left);
-        //equals list
         print_node_equal_tree(temp);
         //right child
         traverseInOrder(temp->right);
@@ -71,6 +70,7 @@ void printBinaryTree(node* root, int space = 0, int height = 10) {
     cout << root->data.region << "\n";
     printBinaryTree(root->left, space);
 }
+
 
 
 

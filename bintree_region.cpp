@@ -103,6 +103,7 @@ node* search_by_region_period(node* root){
     else return nullptr;
 }
 
+
 void edit_birth(node* root){
     int new_cnt;
     node* node = search_by_region_period(root);
