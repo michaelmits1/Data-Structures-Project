@@ -3,23 +3,23 @@ using namespace std;
 
 node* insert_by_region(node* root, Region data){
     //when you find empty child create a new node
-    if (root == nullptr) return newNode(data);
+    if (root==nullptr) return newNode(data);
 
     //search left subtree for empty node
-    if (root->data.region > data.region) {
+    if(data.region < root->data.region) {
         root->left = insert_by_region(root->left, data);
-        return root;
     }
 
     //search right subtree for empty node
-    else if(root->data.region < data.region){
-        root->right = insert_by_region(root->right, data);
+    else if(data.region > root->data.region) {
+        root->right = insert_by_region(root->right,data);
+    }
+    else{
+        root->equalnext = insert_by_period(root->equalnext,data);
         return root;
     }
-    else {
-        root->equalnext = insert_by_period(root->equalnext, data);
-        return root;
-    }
+    balance_node(root);
+    return root;
 }
 node* search_by_region(node* root, string region){
     if(root == nullptr) return nullptr;
@@ -34,8 +34,7 @@ node* search_by_region(node* root, string region){
     else return search_by_region(root->right, region);
 }
 
-
-node* delete_node(node* root, const string& key){
+node* delete_node(node* root, const string& key) {
     if (root == nullptr) return root;
 
     if (key < root->data.region) root->left = delete_node(root->left, key);
@@ -48,36 +47,32 @@ node* delete_node(node* root, const string& key){
             delete_equalnext_bintree(root->equalnext);
         }
 
-        if (root->left == nullptr){
+        if(root->left == nullptr && root->right == nullptr){
+            delete root;
+            return nullptr;
+        }
+        else if(root->left == nullptr){
             node* temp = root->right;
             delete root;
             return temp;
-        } else if (root->right == nullptr){
+        }
+        else if(root->right == nullptr){
             node* temp = root->left;
             delete root;
             return temp;
         }
-
-        //node with 2 sub-trees
-        node* sparent = root;
-        node* s = sparent->right;
-
-        while(s->left != nullptr){
-            sparent = s;
-            s = s->left;
+        else{
+            node* temp = find_min(root->right);
+            //copy data from the successor
+            root->data = temp->data;
+            //delete successor from the subtree
+            root->right = delete_node(root->right, temp->data.region);
         }
-        //copy ta data tou successor sto target
-        root->data = s->data;
-        root->equalnext = s->equalnext;
-
-        if(sparent->left == s) sparent->left = s->right;    //an o successor exei node deksia tou tote ginete aristero node tou goniou tou
-        else sparent->right = s->right;
-
-        delete s;
-        return root;
     }
+    balance_node(root);
     return root;
 }
+
 
 node* search_by_region_period(node* root){
     string period, region;
@@ -115,43 +110,3 @@ void edit_birth(node* root){
     print_node(node);
 }
 
-void displayMenu_region(node* root){
-    int choice;
-    do {
-        cout << "----Menu----\n";
-        cout << "1. Display Binary Search Tree using INORDER Traversal\n";
-        cout << "2. Search BIRTH count by REGION and PERIOD\n";
-        cout << "3. Edit BIRTH count\n";
-        cout << "4. Delete node by REGION\n";
-        cout << "5. Exit\n";
-        cout << "Choose an option: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                traverseInOrder(root);
-                break;
-            case 2: {
-                node* temp = search_by_region_period(root);
-                print_node(temp);
-                break;
-            }
-            case 3:
-                edit_birth(root);
-                break;
-            case 4: {
-                string period, region;
-                cout << "Region: ";
-                cin.ignore();
-                getline(cin, region);
-                delete_node(root, region);
-                break;
-            }
-            case 5:
-                cout << "Exiting...\n";
-                break;
-            default:
-                cout << "Invalid choice. Please choose a valid option.\n";
-        }
-    } while (choice != 5);
-}

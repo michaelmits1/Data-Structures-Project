@@ -3,22 +3,21 @@ using namespace std;
 
 node* insert_by_births(node* root, Region data){
     //when you find empty child create a new node
-    if (root == nullptr) return newNode(data);
-
+    if (root==nullptr) return newNode(data);
     //search left subtree for empty node
-    if (data.cnt < root->data.cnt){
+    if (data.cnt < root->data.cnt) {
         root->left = insert_by_births(root->left, data);
-        return root;
     }
-    //search right subtree for empty node
-    else if (data.cnt > root->data.cnt){
+        //search right subtree for empty node
+    else if(data.cnt > root->data.cnt) {
         root->right = insert_by_births(root->right, data);
-        return root;
     }
     else {
         root->equalnext = insert_by_births(root->equalnext, data);
         return root;
     }
+    balance_node(root);
+    return root;
 }
 
 node* search_by_births(node* root, int key){

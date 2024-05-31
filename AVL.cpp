@@ -10,18 +10,22 @@ int b_factor(node *temp) {
     int left_height = -1;
     int right_height = -1;
 
-    if(temp->left != nullptr) {
+    if(temp->left != nullptr){
         left_height = temp->left->height;
-        if (left_height == -1) left_height = heightcalc(temp->left);
+
+        if(left_height == -1){
+            left_height = heightcalc(temp->left);
+        }
     }
-    if(temp->right != nullptr){
+    if(temp->right != nullptr) {
         right_height = temp->right->height;
-        if(right_height == -1) right_height = heightcalc(temp->right);
+
+        if(right_height == -1){
+            right_height = heightcalc(temp->right);
+        }
     }
-
     temp->height = max(left_height, right_height) + 1;
-
-    return left_height-right_height;    //left.height-right.height
+    return left_height - right_height;    //left.height-right.height
 }
 
 void rotate_left(node *a) {
@@ -117,12 +121,12 @@ node* insert_by_region_avl(node* root, const Region& data){
     return root;
 }
 
-node* delete_node_avl(node* root, const string& key) {
+node* delete_node(node* root, const string& key) {
     if (root == nullptr) return root;
 
-    if (key < root->data.region) root->left = delete_node_avl(root->left, key);
+    if (key < root->data.region) root->left = delete_node(root->left, key);
 
-    else if (key > root->data.region) root->right = delete_node_avl(root->right, key);
+    else if (key > root->data.region) root->right = delete_node(root->right, key);
 
     else{
 
@@ -149,14 +153,14 @@ node* delete_node_avl(node* root, const string& key) {
             //copy data from the successor
             root->data = temp->data;
             //delete successor from the subtree
-            root->right = delete_node_avl(root->right, temp->data.region);
+            root->right = delete_node(root->right, temp->data.region);
         }
     }
     balance_node(root);
     return root;
 }
 
-void displayMenu_avl(node* root){
+void displayMenu_regions(node* root){
     int choice;
     do {
         cout << "----AVL-Menu----\n";
@@ -186,11 +190,11 @@ void displayMenu_avl(node* root){
                 cout << "Region: ";
                 cin.ignore();
                 getline(cin, region);
-                delete_node_avl(root, region);
+                delete_node(root, region);
                 break;
             }
             case 5:
-                printBinaryTree(root, 0, 10);
+                printBinaryTreeRegion(root, 0, 10);
                 break;
             case 6:
                 cout << "Exiting...\n";

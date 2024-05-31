@@ -34,15 +34,16 @@ node* read_csv_regions_avl(node* root,const string& filename);
 
 //Display menu
 void displayMenu_births(node* root);
-void displayMenu_region(node* root);
-void displayMenu_avl(node* root);
+void displayMenu_regions(node* root);
 
 //Binary-tree
 node* newNode(Region data);
 void traverseInOrder(node *temp);
 void print_node_equal_tree(node* temp);
 void print_node(node *temp);
-void printBinaryTree(node* root, int space, int height);
+void printBinaryTreePeriod(node* root, int space, int height);
+void printBinaryTreeRegion(node* root, int space, int height);
+void deletetree(node *temp);
 
 //BIN_TREE_BIRTHS
 node* insert_by_births(node* root,Region data);
@@ -69,8 +70,6 @@ void rotate_left(node *a);
 void rotate_right(node *a);
 void balance_node(node* a);
 node* insert_by_region_avl(node* root, const Region& data);
-int geth(node* node);
-node* delete_node_avl(node* root, const string& key);
 
 
 
