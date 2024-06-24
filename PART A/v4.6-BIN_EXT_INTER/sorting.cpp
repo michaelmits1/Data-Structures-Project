@@ -1,7 +1,7 @@
 #include "region.h"
 using namespace std;
 
-// Mergesort
+//  MERGESORT
 void merge(Region *Arr, int start, int mid, int end) {
     // create a temp array
     Region temp[end - start + 1];
@@ -33,7 +33,6 @@ void merge(Region *Arr, int start, int mid, int end) {
         Arr[i] = temp[i - start];
     }
 }
-
 void mergeSort(Region *Arr, int start, int end) {
     if(start < end) {
         int mid=(start + end) / 2;
@@ -43,7 +42,7 @@ void mergeSort(Region *Arr, int start, int end) {
     }
 }
 
-//Quicksort
+//  QUICKSORT
 void quicksort(Region *list, int left, int right){  //O(nlogn) wc:n^2
     int pivot, l, r;    //pivot, left arrow, right arrow
     l = left;           //left arrow = left most element in list
@@ -64,7 +63,7 @@ void quicksort(Region *list, int left, int right){  //O(nlogn) wc:n^2
     if(l < right) quicksort(list, l, right);
 }
 
-//Countsort
+//  COUNTSORT
 void countsort(Region *array, int size){
     int m=0;
 
@@ -95,7 +94,7 @@ void countsort(Region *array, int size){
 
 }
 
-//Heapsort (MaxHeap)
+//  HEAPSORT (MaxHeap)
 void heapify(Region* list, int size, int root){
     int largest = root;
     int l = 2*root + 1;     //left child
@@ -112,7 +111,6 @@ void heapify(Region* list, int size, int root){
         heapify(list, size, largest);
     }
 }
-
 void heapsort(Region* list, int size){
     for(int i=size/2 -1; i>=0; --i){
         heapify(list, size, i);

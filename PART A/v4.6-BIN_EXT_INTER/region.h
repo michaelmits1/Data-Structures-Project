@@ -18,6 +18,11 @@ struct Region{
     int cnt;
 };
 
+
+//  MENU
+int secondary_menu(const string& s1,const string& s2);
+void displayMenu( Region regions[],int size);
+
 //File Handling
 void read_csv(Region regions[],const string& filename);
 void print_array_regions(Region regions[],int size);
@@ -39,17 +44,14 @@ int interpolation_search(Region *list, int key, int left, int right);
 int bin_inter_search(Region* list, int size, int key);
 int bin_inter_extended_search(Region* list, int size , int key);
 
-int linear(Region list[], int size, int start, int key);
 
+// Find regions using Searching functions
 void find_region_bin(Region* arr, int size, int b1, int b2);
 void find_region_inter(Region* arr, int size, int b1, int b2);
 void find_region_bin_inter(Region* arr, int size, int b1, int b2);
 void find_region_bin_inter_extended(Region* arr, int size, int b1, int b2);
 
+
 double calculateStats(Region *list, int size);
-
-int secondary_menu(const string& s1,const string& s2);
-void displayMenu( Region regions[],int size);
-
 #endif //REGION_H
 
