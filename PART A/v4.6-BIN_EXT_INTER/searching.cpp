@@ -1,35 +1,39 @@
 #include "region.h"
 using namespace std;
+int bin = 0, inter = 0, bin_inter=0, bin_inter_ext=0;
+//  BINARY SEARCH
+int bin_search(Region* list, int left, int right, int key){
+    int mid = (left + right) / 2;
 
-int bin_search(Region* list, int b1, int b2, int key){
-    int mid = (b2 + b1) / 2;
-
-    if(list[mid].cnt == key) return mid;
+    if (list[mid].cnt == key) return mid;
 
     else if(list[mid].cnt > key){
-        if(b2 == b1) return -1 ;
-        return bin_search(list, b1, mid - 1, key);  //search left
+        if(right <= left) return -1;
+        return bin_search(list, left, mid - 1, key);    //search left
     }
     else if(list[mid].cnt < key){
-        if (b2 == b1) return -1;
-        return bin_search(list, mid + 1, b2, key);  //search right
+        if(left==right) return -1;
+        return bin_search(list, mid + 1, right, key);   //search right
     }
 }
-int interpolation_search(Region *list, int key, int left, int right) {
-    while(left <= right && key >= list[left].cnt && key <= list[right].cnt){
 
-        int pos = left + (((key - list[left].cnt) * (right - left)) / (list[right].cnt - list[left].cnt));
+//  INTERPOLATION SEARCH
+int interpolation_search(Region* list, int left, int right, int key){
+    int medium = left + (((key - list[left].cnt) * (right - left)) / (list[right].cnt - list[left].cnt));
 
-        //found
-        if(list[pos].cnt == key){
-           return pos;
-        }
-        //continue search
-        if(list[pos].cnt > key) right = pos - 1;
-        else left = pos + 1;
+    if(list[medium].cnt == key) return medium;
+
+    else if(list[medium].cnt > key){
+        if(right <= left) return -1 ;
+        return interpolation_search(list, left, medium - 1, key);   //search left
     }
-    return -1;
+    else if(list[medium].cnt < key){
+        if (right <= left) return -1;
+        return interpolation_search(list, medium + 1, right, key);  //search right
+    }
 }
+
+//  BINARY INTERPOLATION SEARCH
 int bin_inter_search(Region* list, int size , int key){
     if (key > list[size-1].cnt || key < list[0].cnt) return -1;
 
@@ -37,9 +41,10 @@ int bin_inter_search(Region* list, int size , int key){
     int right = size-1;
     int len = right - left;
     int next = len * ((key - list[left].cnt) / (list[right].cnt - list[left].cnt));
-    int step;
+    int step=0;
 
     while(key != list[next].cnt ){
+        cout << bin_inter << " binary inter" << endl;
         int i=0;
         len = right - left+1;
         step=(int)sqrt(len);
@@ -71,52 +76,17 @@ int bin_inter_search(Region* list, int size , int key){
         }
         next = left- 1 + ((right - left+1) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt));
     }
-
-
     if(key == list[next].cnt) return next;
     else return -1;
-}
-int bin_inter_extented_search(Region* list, int size, int key){
-    int left=0;
-    int right= size - 1;
-    int len = right - left + 1;
-    int next= (int)(ceil(len * (key - (list[left].cnt)) / (list[right].cnt - list[left].cnt))) + 1;
-
-    while(key != list[next].cnt){
-
-        int i=0;
-        size=right-left+1;
-        if(list[left].cnt <= key && key <= list[right].cnt)  return bin_search(list, left, right, key);
-
-        else if (key >= list[next].cnt){
-            while (key > list[(int)(next + pow(2, i) * sqrt(len) - 1)].cnt) ++i;
-
-            right=(int)(next + pow(2,i) * sqrt(size));
-            left=(int)(next + pow(2,i-1) * sqrt(size));
-
-        }
-        else if (key < list[next].cnt){
-            while (key < list[(int)(next - pow(2, i) * sqrt(len) + 1)].cnt) ++i;
-
-            right=(int)(next - pow(2,i-1) * sqrt(size));
-            left=(int)(next + pow(2,i) * sqrt(size));
-        }
-        next=left + (int)(ceil((right-left+1) * (key - list[left].cnt) / (list[right].cnt - list[left].cnt)) - 1);
-    }
-
-    if(key == list[next].cnt){
-        return next;}
-    else
-        return -1;
 
 }
-int bin_inter_extented_search_NOT(Region* list, int size , int key){
+
+//  BINARY INTERPOLATION SEARCH EXTENDED
+int bin_inter_extended_search(Region* list, int size , int key){
+
     if (key > list[size-1].cnt || key < list[0].cnt) return -1;
-
     int left = 0;
     int right = size - 1;
-
-    // Interpolation step
     int next = left + ((key - list[left].cnt) * (right - left) / (list[right].cnt - list[left].cnt));
     if (next < left || next > right) return -1; // Check bounds
 
@@ -137,130 +107,102 @@ int bin_inter_extented_search_NOT(Region* list, int size , int key){
 
         if (key > list[next].cnt) {  // Search to the right
             while (next + i * step <= right && key > list[next + i * step].cnt) {
-                i *= 2;
+                i =i* 2;
             }
             left = next + (i / 2) * step;
             right = min(next + i * step, right);
-
-            // Binary search in the identified range
-            while (left <= right) {
+            // cout<<"left: "<<left<<"|next: "<<next<<"|right: "<<right<<"\n";
+            while (left+step < right) {
                 int mid = left + (right - left) / 2;
                 if (list[mid].cnt == key) return mid;
                 else if (list[mid].cnt < key) left = mid + 1;
                 else right = mid - 1;
             }
-        } else {  // Search to the left
+        } else {
             while (next - i * step >= left && key < list[next - i * step].cnt) {
-                i *= 2;
+                i =i*2;
             }
             right = next - (i / 2) * step;
             left = max(next - i * step, left);
-
-            // Binary search in the identified range
-            while (left <= right) {
+            // cout<<"left: "<<left<<"|next: "<<next<<"|right: "<<right<<"\n";
+            while (left+step < right) {
                 int mid = left + (right - left) / 2;
                 if (list[mid].cnt == key) return mid;
                 else if (list[mid].cnt < key) left = mid + 1;
                 else right = mid - 1;
             }
         }
+        next = left + ((key - list[left].cnt) * (right - left) / (list[right].cnt - list[left].cnt));
     }
     return -1;
 }
 
-Region* find_regions_inter(Region *list, int size, Region found[]){
-    int count=0;
-    int b1, b2;
-    cout << "span [b1, b2]: ";
-    cin >> b1 >> b2;
-    int p1 = b1;
-    int p2 = b2;
-
-    int pos1 = interpolation_search(list, p1, 0, size - 1);
-    while(pos1 == -1){
-        p1++;
-        pos1 = interpolation_search(list, p1, 0, size - 1);
-    }
-
-    int pos2 = interpolation_search(list, p2, 0, size - 1);
-    while(pos2 == -1){
-        p2--;
-        pos2 = interpolation_search(list, p2, 0, size - 1);
-    }
-
-    for(int i=pos1; i<=pos2; ++i){
-        found[count++] = list[i];
-    }
-    while(list[pos2+1].cnt == list[pos2].cnt && stoi(list[pos2+1].period) != stoi(list[pos2-1].period)){
-        found[count++] = list[pos2++];
-    }
-
-
-    if (count==0) {
-        cout << "No regions found within the specified birth count range.\n";
-    } else {
-        cout << "Regions within the specified birth count range:\n";
-        for (int i = 0; i < count; ++i) {
-            cout << i+1 << ". ";
-            cout << "Period: " << found[i].period << ", ";
-            cout << "Region: " << found[i].region << ", ";
-            cout << "Count: " << found[i].cnt << endl;
-        }
-    }
-}
-Region* find_regions_bin_inter(Region *list, int size, Region found[]){
-    int count=0;
-    int b1, b2;
-    cout << "span [b1, b2]: ";
-    cin >> b1 >> b2;
-    int p1 = b1;
-    int p2 = b2;
-
-    int pos1 = bin_inter_search(list, size, p1);
-    while(pos1 == -1){
-        p1++;
-        pos1 = bin_inter_search(list, size, p1);
-    }
-
-    int pos2 = bin_inter_search(list, size, p2);
-    while(pos2 == -1){
-        p2--;
-        pos2 = bin_inter_search(list, size, p2);
-    }
-
-    for(int i=pos1; i<=pos2; ++i){
-        found[count++] = list[i];
-    }
-    while(list[pos2+1].cnt == list[pos2].cnt && stoi(list[pos2+1].period) != stoi(list[pos2-1].period)){
-        found[count++] = list[pos2++];
-    }
-
-    if (count==0) {
-        cout << "No regions found within the specified birth count range.\n";
-    } else {
-        cout << "Regions within the specified birth count range:\n";
-        for (int i = 0; i < count; ++i) {
-            cout << i+1 << ". ";
-            cout << "Period: " << found[i].period << ", ";
-            cout << "Region: " << found[i].region << ", ";
-            cout << "Count: " << found[i].cnt << endl;
-        }
-    }
-}
-void find_regions_bin(Region* arr,int size,int b1,int b2){
+void find_region_bin(Region* arr,int size,int b1,int b2){
     int start_index=-1;
     int end_index=-1;
-    while(b1<b2 && start_index==-1){
+
+    if (arr[size-1].cnt<=b2) end_index=size-1;
+    if (arr[0].cnt>=b1) start_index=0;
+    while(b1<=b2 && start_index==-1){
         start_index=bin_search(arr,0,size-1,b1);
         b1++;
     }
-    while(b1<b2 && end_index==-1){
+    while(b1-1<=b2 && end_index==-1){
         end_index=bin_search(arr,0,size-1,b2);
+        b2--;
+    }
+    print_part_of_array(arr, start_index, end_index,size);
+}
+
+void find_region_inter(Region* arr,int size,int b1,int b2){
+    int start_index=-1;
+    int end_index=-1;
+    if (arr[size-1].cnt<=b2) end_index=size-1;
+    if (arr[0].cnt>=b1) start_index=0;
+    while(b1<=b2 && start_index==-1){
+        start_index=interpolation_search(arr,0,size-1,b1);
+        b1++;
+    }
+    while(b1-1<=b2 && end_index==-1){
+        end_index=interpolation_search(arr,0,size-1,b2);
+        b2--;
+    }
+    print_part_of_array(arr,start_index,end_index,size);
+}
+
+
+void find_region_bin_inter(Region* arr,int size,int b1,int b2){
+    int start_index=-1;
+    int end_index=-1;
+    if (arr[size-1].cnt<=b2) end_index=size-1;
+    if (arr[0].cnt>=b1) start_index=0;
+    while(b1<=b2 && start_index==-1){
+        start_index=bin_inter_search(arr,size,b1);
+        b1++;
+    }
+    while(b1-1<=b2 && end_index==-1){
+        end_index=bin_inter_search(arr,size,b2);
         b2--;
     }
     print_part_of_array(arr,start_index,end_index,size);
 
 }
 
+void find_region_bin_inter_extended(Region* arr,int size,int b1,int b2){
+    int start_index=-1;
+    int end_index=-1;
+    if (arr[size-1].cnt<=b2) end_index=size-1;
+    if (arr[0].cnt>=b1) start_index=0;
+    while(b1<=b2 && start_index==-1){
+        start_index=bin_inter_extended_search(arr,size,b1);
+        b1++;
+    }
+    while(b1-1<=b2 && end_index==-1){
+        end_index=bin_inter_extended_search(arr,size,b2);
+        b2--;
+    }
+    print_part_of_array(arr,start_index,end_index,size);
+
+}
 
 

@@ -44,14 +44,14 @@ void mergeSort(Region *Arr, int start, int end) {
 }
 
 //Quicksort
-void quicksort(Region *list, int left, int right){
+void quicksort(Region *list, int left, int right){  //O(nlogn) wc:n^2
     int pivot, l, r;    //pivot, left arrow, right arrow
     l = left;           //left arrow = left most element in list
     r = right;
     pivot = list[(left + right) / 2].cnt;
 
     while(r >= l){
-        while(list[r].cnt > pivot) --r; //
+        while(list[r].cnt > pivot) --r;
         while(list[l].cnt < pivot) ++l;
 
         if(l <= r){
@@ -60,39 +60,39 @@ void quicksort(Region *list, int left, int right){
             --r;
         }
     }
-
     if(left < r) quicksort(list, left, r);
     if(l < right) quicksort(list, l, right);
 }
 
 //Countsort
-Region* countsort(Region *inlist, int size){
+void countsort(Region *array, int size){
     int m=0;
 
     for (int i = 0; i < size; ++i) {
-        m = max(m, inlist[i].cnt);
+        m = max(m, array[i].cnt);
     }
 
-    int clist[m+1];      //counting list with inputs max val filled with 0
-    for(int i=0; i<=m; ++i){
-        clist[i]=0;
-    }
+    int cntarr[m+1];
+    for(int i=0;i<m+1;i++) cntarr[i]=0;      //fill array with zero
 
     for(int i=0; i<size; ++i){
-        clist[inlist[i].cnt]++;
+        cntarr[array[i].cnt]++; //count repetitions of each value
     }
-    for(int j=0; j <= m; ++j){
-        clist[j] += clist[j-1];
+    for(int j=1; j <m+1; ++j){
+        cntarr[j]=cntarr[j]+cntarr[j-1];
     }
 
-    //Region* outlist[size];
-    Region* outlist = new Region[size];
+    Region outarr[size];
+    int index;
 
     for(int i = size - 1; i >= 0; --i){
-        outlist[clist[inlist[i].cnt] - 1] = inlist[i];
-        clist[inlist[i].cnt]--;
+        cntarr[array[i].cnt]--;
+        index=cntarr[array[i].cnt];
+        outarr[index]=array[i];
     }
-    return outlist;
+
+    for (int i=0;i<size;i++)array[i]=outarr[i]; //copy values to given array
+
 }
 
 //Heapsort (MaxHeap)

@@ -26,7 +26,7 @@ void read_csv(Region regions[],const string& filename) {
 
             Region r;
 
-            if(region.front() == '"' && region.back() == '"') r.region = "UNKNOWN";
+            if(region.front() == '"' && region.back() == '"') r.region = "Region not stated";
             else r.region = region;
             r.period = period;
             r.event = (event_str == "Births");
@@ -49,7 +49,7 @@ void read_csv(Region regions[],const string& filename) {
                     break;
                 }
             }
-            r.region = "UNKNOWN";
+            r.region = "Region not stated";
             r.period = period;
             r.event = (event_str == "Births");
             getline(file, cnt_str);
@@ -117,11 +117,29 @@ void print_part_of_array(Region regions[],int start_index,int end_index,int size
     if (end_index>size-1 || start_index<0) return;
 
     if (end_index!=-1){
-        for (int i=start_index;i<=end_index;i++) {
-            cout <<i <<"Period: " << regions[i].period << ", ";
+        for (int i=start_index; i<=end_index;i++) {
+            cout << i <<"Period: " << regions[i].period << ", ";
             cout << "Event: " << (regions[i].event ? "Births" : "Deaths") << ", ";
             cout << "Region: " << regions[i].region << ", ";
             cout << " " << regions[i].cnt << endl;
         }
     }
+}
+
+double calculateStats(Region *list, int size) {
+    // Calculate the mean of the array
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += list[i].cnt;
+    }
+    double mean = static_cast<double>(sum) / size;
+    cout << "mean: " << mean << endl;
+
+    // Calculate the variance
+    double variance = 0;
+    for (int i = 0; i < size; i++) {
+        variance += pow(list[i].cnt - mean, 2);
+    }
+    variance = static_cast<double>(variance) / size;
+    return sqrt(variance);
 }

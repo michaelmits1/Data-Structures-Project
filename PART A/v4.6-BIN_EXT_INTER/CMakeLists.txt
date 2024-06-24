@@ -7,4 +7,5 @@ add_executable(untitled main.cpp
         filehandler.cpp
         region.h
         sorting.cpp
-        searching.cpp)
+        searching.cpp
+        menu.cpp)

@@ -4,8 +4,11 @@
 #include "iostream"
 #include "fstream"
 #include "sstream"
+#include "vector"
 #include "algorithm"
 #include "math.h"
+#include "numeric"
+#include "unistd.h"
 using namespace std;
 
 struct Region{
@@ -26,22 +29,25 @@ void print_part_of_array(Region regions[],int start_index,int end_index,int size
 void merge(Region *Arr, int start, int mid, int end);
 void mergeSort(Region *Arr, int start, int end);
 void quicksort(Region *list, int left, int right);
-Region* countsort(Region *inlist, int size);
+void countsort(Region *array, int size);
 void heapify(Region* list, int size, int root);
 void heapsort(Region* list, int size);
 
 //Searching
-int bin_search(Region* list, int b1, int b2, int key);
+int bin_search(Region* list, int left, int right, int key);
 int interpolation_search(Region *list, int key, int left, int right);
 int bin_inter_search(Region* list, int size, int key);
-int bin_inter_extented_search(Region* list, int size , int key);
-int bin_inter_extented_search_NOT(Region* list, int size , int key);
+int bin_inter_extended_search(Region* list, int size , int key);
 
-void find_regions_bin(Region* arr,int size,int b1,int b2);
-Region* find_regions_inter(Region *list, int size, Region found[]);
-Region* find_regions_bin_inter(Region *list, int size, Region found[]);
+void find_region_bin(Region* arr, int size, int b1, int b2);
+void find_region_inter(Region* arr, int size, int b1, int b2);
+void find_region_bin_inter(Region* arr, int size, int b1, int b2);
+void find_region_bin_inter_extended(Region* arr, int size, int b1, int b2);
 
+double calculateStats(Region *list, int size);
 
+int secondary_menu(const string& s1,const string& s2);
+void displayMenu( Region regions[],int size);
 
 #endif //REGION_H
 
