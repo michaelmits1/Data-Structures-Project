@@ -39,6 +39,8 @@ int interpolation_search(Region *list, int key, int left, int right);
 int bin_inter_search(Region* list, int size, int key);
 int bin_inter_extended_search(Region* list, int size , int key);
 
+int linear(Region list[], int size, int start, int key);
+
 void find_region_bin(Region* arr, int size, int b1, int b2);
 void find_region_inter(Region* arr, int size, int b1, int b2);
 void find_region_bin_inter(Region* arr, int size, int b1, int b2);

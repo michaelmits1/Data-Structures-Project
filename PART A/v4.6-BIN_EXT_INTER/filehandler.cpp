@@ -112,13 +112,13 @@ int get_arrsize_event(Region regions[],int size){
 
 void print_part_of_array(Region regions[],int start_index,int end_index,int size){
     cout<<"print_array_regions\n";
-    cout<<"start "<<start_index<<" end "<<end_index<<"\n";
+    cout<<"start "<<start_index<<" end "<< end_index<<"\n";
 
-    if (end_index>size-1 || start_index<0) return;
+    if (end_index>size || start_index<0) cerr << "Error\n";
 
-    if (end_index!=-1){
-        for (int i=start_index; i<=end_index;i++) {
-            cout << i <<"Period: " << regions[i].period << ", ";
+    else{
+        for (int i=start_index; i<end_index;i++) {
+            cout << i << ". Period: " << regions[i].period << ", ";
             cout << "Event: " << (regions[i].event ? "Births" : "Deaths") << ", ";
             cout << "Region: " << regions[i].region << ", ";
             cout << " " << regions[i].cnt << endl;
