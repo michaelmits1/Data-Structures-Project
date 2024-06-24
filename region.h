@@ -1,6 +1,5 @@
 #ifndef REGION_H
 #define REGION_H
-
 #include "string"
 #include "vector"
 #include "iostream"
@@ -33,8 +32,10 @@ node* read_csv_regions(node* root,const string& filename);
 node* read_csv_regions_avl(node* root,const string& filename);
 
 //Display menu
-void displayMenu_births(node* root);
-void displayMenu_regions(node* root);
+void Menu_B(node* root);
+void Menu_A(node* root);
+void ultimate_extra_cool_hard_menu(node* root, const string& fname);
+void HashingMenu(vector<node*>& htable);
 
 //Binary-tree
 node* newNode(Region data);
@@ -46,14 +47,13 @@ void printBinaryTreeRegion(node* root, int space, int height);
 void deletetree(node *temp);
 
 //BIN_TREE_BIRTHS
-node* insert_by_births(node* root,Region data);
+node* insert_by_births(node* root,const Region& data);
 node* search_by_births(node* root,int key);
 node* find_min(node* root);
 node* find_max(node* root);
 
 //BIN_TREE_REGION
-node* insert_by_region(node* root, Region data);
-node* search_by_region(node* root, string region);
+node* search_by_region(node* root, const string& region);
 void delete_equalnext_bintree(node *temp);
 node* delete_node(node* root, const string& key);
 node* search_by_region_period(node* root);
@@ -71,6 +71,12 @@ void rotate_right(node *a);
 void balance_node(node* a);
 node* insert_by_region_avl(node* root, const Region& data);
 
+//HASHING
+int gethash(string Region);
+void insert_htable(vector<node*>& htable, const Region& data);
+node* search_htable(vector<node*>& htable, const string& region, const string& period);
+void print_htable(vector<node*>& htable);
+void editnode(vector<node*>& htable, const string& reg, const string& period);
 
 
 #endif

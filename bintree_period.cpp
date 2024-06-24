@@ -7,10 +7,10 @@ node* search_by_period(node* root, const string& key){
     //check if the node contains key
     if(root->data.period == key) return root;
 
-        //search left subtree
+    //search left subtree
     else if(key < root->data.period) return search_by_period(root->left, key);
 
-        //search right subtree
+    //search right subtree
     else return search_by_period(root->right, key);
 }
 

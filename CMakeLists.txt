@@ -10,4 +10,8 @@ add_executable(Data_Structures_Project
         bintree_region.cpp
         bintree.cpp
         bintree_period.cpp
-        AVL.cpp)
+        AVL.cpp
+        hashing.cpp
+        menu.cpp
+)
+

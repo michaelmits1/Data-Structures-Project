@@ -1,7 +1,7 @@
 #include "region.h"
 using namespace std;
 
-node* insert_by_births(node* root, Region data){
+node* insert_by_births(node* root, const Region& data){
     //when you find empty child create a new node
     if (root==nullptr) return newNode(data);
     //search left subtree for empty node
@@ -33,23 +33,14 @@ node* search_by_births(node* root, int key){
     else return search_by_births(root->right, key);
 }
 
-void displayMenu_births(node* root){
-    int choice;
-    node* key;
-    do {
-        cout << "----Menu----\n";
-        cout << "1. Find Region/Regions with the MINIMUM NUMBER OF BIRTHS\n";
-        cout << "2. Find Region/Regions with the MAXIMUM NUMBER OF BIRTHS\n";
-        cout << "3. Exit\n";
-        cout << "Choose an option: ";
-        cin >> choice;
+void edit_birth(node* root){
+    int new_cnt;
+    node* node = search_by_region_period(root);
+    print_node(node);
+    cout << "Current Birth count: " << node->data.cnt << "\nInsert new Birth count: ";
+    cin >> new_cnt;
 
-        if (choice == 1) {
-            key=find_min(root);
-            print_node_equal_tree(key);
-        } else if (choice == 2) {
-            key=find_max(root);
-            print_node_equal_tree(key);
-        }
-    } while (choice != 3);
+    node->data.cnt = new_cnt;
+    print_node(node);
 }
+

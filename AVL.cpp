@@ -6,7 +6,7 @@ int heightcalc(node* temp){
     return max(heightcalc(temp->left), heightcalc(temp->right)) + 1;
 }
 
-int b_factor(node *temp) {
+int b_factor(node *temp){
     int left_height = -1;
     int right_height = -1;
 
@@ -87,7 +87,7 @@ void balance_node(node* a){
         return;
     }
     else if(bf < -1){
-        if(b_factor(a->right)<=0) {
+        if(b_factor(a->right) <= 0) {
             rotate_left(a);
             heightcalc(a);
         }
@@ -99,27 +99,6 @@ void balance_node(node* a){
     }
 }
 
-node* insert_by_region_avl(node* root, const Region& data){
-    //when you find empty child create a new node
-    if (root==nullptr) return newNode(data);
-
-    //search left subtree for empty node
-    if (data.region < root->data.region) {
-        root->left = insert_by_region_avl(root->left, data);
-    }
-
-    //search right subtree for empty node
-    else if(data.region > root->data.region) {
-        root->right=insert_by_region_avl(root->right,data);
-    }
-    else if(data.region == root->data.region){
-        root->equalnext = insert_by_region_avl(root->equalnext,data);
-        return root;
-    }
-
-    balance_node(root);
-    return root;
-}
 
 node* delete_node(node* root, const string& key) {
     if (root == nullptr) return root;
@@ -131,7 +110,7 @@ node* delete_node(node* root, const string& key) {
     else{
 
         if (root->equalnext != nullptr){
-            delete_equalnext_bintree(root->equalnext);
+            deletetree(root->equalnext);
         }
 
         if(root->left == nullptr && root->right == nullptr){
@@ -160,48 +139,5 @@ node* delete_node(node* root, const string& key) {
     return root;
 }
 
-void displayMenu_regions(node* root){
-    int choice;
-    do {
-        cout << "----AVL-Menu----\n";
-        cout << "1. Display AVL Search Tree using INORDER Traversal\n";
-        cout << "2. Search BIRTH count by REGION and PERIOD\n";
-        cout << "3. Edit BIRTH count\n";
-        cout << "4. Delete node by REGION\n";
-        cout << "5. Visual AVL tree\n";
-        cout << "6. Exit\n";
-        cout << "Choose an option: ";
-        cin >> choice;
 
-        switch (choice) {
-            case 1:
-                traverseInOrder(root);
-                break;
-            case 2: {
-                node* temp = search_by_region_period(root);
-                print_node(temp);
-                break;
-            }
-            case 3:
-                edit_birth(root);
-                break;
-            case 4: {
-                string period, region;
-                cout << "Region: ";
-                cin.ignore();
-                getline(cin, region);
-                delete_node(root, region);
-                break;
-            }
-            case 5:
-                printBinaryTreeRegion(root, 0, 10);
-                break;
-            case 6:
-                cout << "Exiting...\n";
-                break;
-            default:
-                cout << "Invalid choice. Please choose a valid option.\n";
-        }
-    } while (choice != 6);
-}
 

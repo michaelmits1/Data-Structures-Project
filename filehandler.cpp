@@ -62,16 +62,14 @@ node* read_csv_births(node* root, const string& filename){
                 continue; // Skip this line and continue to the next one
             }
 
-            if(r.event) root= insert_by_births(root, r);
-
+            if(r.event) root = insert_by_births(root, r);
         }
-
     }
 
     file.close();
     return root;
 }
-
+/*
 node* read_csv_regions(node* root,const string& filename){
     ifstream file(filename);
     string line;
@@ -140,7 +138,7 @@ node* read_csv_regions(node* root,const string& filename){
 
     file.close();
     return root;
-}
+}*/
 node* read_csv_regions_avl(node* root,const string& filename) {
     ifstream file(filename);
     string line;

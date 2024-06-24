@@ -1,18 +1,19 @@
 #include "region.h"
 using namespace std;
 
-node* insert_by_region(node* root, Region data){
+
+node* insert_by_region_avl(node* root, const Region& data){
     //when you find empty child create a new node
     if (root==nullptr) return newNode(data);
 
     //search left subtree for empty node
     if(data.region < root->data.region) {
-        root->left = insert_by_region(root->left, data);
+        root->left = insert_by_region_avl(root->left, data);
     }
 
-    //search right subtree for empty node
+        //search right subtree for empty node
     else if(data.region > root->data.region) {
-        root->right = insert_by_region(root->right,data);
+        root->right = insert_by_region_avl(root->right,data);
     }
     else{
         root->equalnext = insert_by_period(root->equalnext,data);
@@ -21,7 +22,8 @@ node* insert_by_region(node* root, Region data){
     balance_node(root);
     return root;
 }
-node* search_by_region(node* root, string region){
+
+node* search_by_region(node* root, const string& region){
     if(root == nullptr) return nullptr;
 
     //check if the node contains key
@@ -33,46 +35,6 @@ node* search_by_region(node* root, string region){
     //search right subtree
     else return search_by_region(root->right, region);
 }
-
-node* delete_node(node* root, const string& key) {
-    if (root == nullptr) return root;
-
-    if (key < root->data.region) root->left = delete_node(root->left, key);
-
-    else if (key > root->data.region) root->right = delete_node(root->right, key);
-
-    else{
-
-        if (root->equalnext != nullptr){
-            delete_equalnext_bintree(root->equalnext);
-        }
-
-        if(root->left == nullptr && root->right == nullptr){
-            delete root;
-            return nullptr;
-        }
-        else if(root->left == nullptr){
-            node* temp = root->right;
-            delete root;
-            return temp;
-        }
-        else if(root->right == nullptr){
-            node* temp = root->left;
-            delete root;
-            return temp;
-        }
-        else{
-            node* temp = find_min(root->right);
-            //copy data from the successor
-            root->data = temp->data;
-            //delete successor from the subtree
-            root->right = delete_node(root->right, temp->data.region);
-        }
-    }
-    balance_node(root);
-    return root;
-}
-
 
 node* search_by_region_period(node* root){
     string period, region;
@@ -99,14 +61,50 @@ node* search_by_region_period(node* root){
 }
 
 
-void edit_birth(node* root){
-    int new_cnt;
-    node* node = search_by_region_period(root);
-    print_node(node);
-    cout << "Current Birth count: " << node->data.cnt << "\nInsert new Birth count: ";
-    cin >> new_cnt;
 
-    node->data.cnt = new_cnt;
-    print_node(node);
+
+node* delete_node_region(node* temp, string key){
+    if (temp==nullptr){
+        cout<<"no such key to be deleted\n";
+        return temp;
+    }
+    if (key < temp->data.region) {
+        temp->left = delete_node_region(temp->left, key);
+    }
+    else if (key > temp->data.region) {
+        temp->right = delete_node_region(temp->right, key);
+    }
+    else{
+        if(temp->left==nullptr && temp->right==nullptr) {//if the node is a leaf just delete
+            cout<<"leaf\n";
+            deletetree(temp->equalnext);
+            delete temp;
+            return nullptr;
+        }
+        else if (temp->right==nullptr){//no right child
+            cout<<"no right child\n";
+            node* left=temp->left;
+            deletetree(temp->equalnext);
+            delete temp;
+            return left;
+        }
+        else if (temp->left==nullptr){//no lieft child
+            cout<<"no left child\n";
+            node* right=temp->right;
+            deletetree(temp->equalnext);
+            delete temp;
+            return right;
+        }
+        else{// two children ,swap node with the next minimum value
+            cout<<"two children\n";
+            node* minvalue=find_min(temp->right);
+            deletetree(temp->equalnext);
+            //swap node with min value of the right subtree of the temp node
+            temp->data=minvalue->data;
+            temp->equalnext=minvalue->equalnext;
+            temp->right=delete_node_region(temp->right,minvalue->data.region);
+        }
+    }
+    balance_node(temp);
+    return temp;
 }
-

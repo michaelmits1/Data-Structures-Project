@@ -3,43 +3,11 @@ using namespace std;
 
 int main() {
     string fname = "/home/mmitsainas/datastrproj/Data-Structures-Project2/Data-Structures-Project/input.csv";
-
     node *root = nullptr;
 
     //BIRTHS BST
     root = read_csv_regions_avl(root, fname);
-
-    //cout << "Inorder traversal:\n";
-
-    //node* item = search_by_births(root,12);
-    //displayMenu(root);
-    //print_node(item);
-    //print_node_equal_tree(item);
-    //node* node = delete_node(root, "West Coast region");
-
-    //REGION BST
-    //root=read_csv_regions(root,fname);
-    //node* node = delete_node(root, "Tasman region");
-    //traverseInOrder(node);
-    //displayMenu_region(root);
-
-    //avl
-    //traverseInOrder(root);
-//    delete_node(root, "Auckland region");
-//    delete_node(root, "Bay of Plenty region");
-//    delete_node(root, "Tasman region");
-//    traverseInOrder(root);
-
-    // Print the AVL tree structure
-//    heightcalc(root);
-//    printBinaryTree(root,0,10);
-//    //cout<<"AFTER DELETION\n";
-//    root = delete_node(root,"Nelson region");
-//    balance_node(root);
-//    //heightcalc(root);
-//    traverseInOrder(root);
-//    printBinaryTree(root,0,10);
-    displayMenu_regions(root);
+    ultimate_extra_cool_hard_menu(root, fname);
 
     return 0;
 }
