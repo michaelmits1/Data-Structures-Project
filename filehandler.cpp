@@ -1,7 +1,7 @@
 #include "region.h"
 using namespace std;
 
-node* read_csv_births(node* root, const string& filename){
+node* read_csv_births(node* root,const string& filename) {
     ifstream file(filename);
     string line;
 
@@ -17,17 +17,13 @@ node* read_csv_births(node* root, const string& filename){
         string period, event_str, region,region2, cnt_str;
 
         // Parse the line
-        if (getline(ss, period, ',') &&
-            getline(ss, event_str, ',') &&
-            getline(ss, region, ',') &&
+        if (getline(ss, period, ',') && 
+            getline(ss, event_str, ',') && 
+            getline(ss, region, ',') && 
             getline(ss, cnt_str, ',')) {
             // Handle quoted region name (same as before)
 
             Region r;
-
-            if(region.front() == '"' && region.back() == '"') r.region = "Region not stated";
-            else r.region = region;
-
             r.period = period;
             r.event = (event_str == "Births");
             r.region = region;
@@ -38,21 +34,24 @@ node* read_csv_births(node* root, const string& filename){
             } catch (const std::invalid_argument& e) {
                 continue; // Skip this line and continue to the next one
             }
-            if(r.event) root = insert_by_births(root, r);
+            if (r.event==1)root=insert_by_births(root,r);
         }
         else{
-            string waste;
-            Region r;
-            if(region.front() == '"'){
-                while(getline(file, line, ',')){
-                    break;
-                }
-            }
-            r.region = "Region not stated";
+            stringstream sss(linecopy);
+            getline(sss, period, ',') ;
+            getline(sss, event_str, ',') ; 
+            getline(sss, region, ',');
+             Region r;
             r.period = period;
             r.event = (event_str == "Births");
-            getline(file, cnt_str);
-            r.cnt= stoi(cnt_str);
+            r.region = region;
+           
+            getline(file, line);
+            stringstream s(line);
+            getline(s, region2, ','); // Read the region within quotes
+            getline(s, cnt_str, ',');
+           r.region.append(" ");
+           r.region.append(region2);
 
             // Convert cnt_str to integer (with error handling)
             try {
@@ -62,15 +61,16 @@ node* read_csv_births(node* root, const string& filename){
                 continue; // Skip this line and continue to the next one
             }
 
-            if(r.event) root = insert_by_births(root, r);
+            if (r.event==1)root=insert_by_births(root,r);
         }
+       
     }
 
     file.close();
     return root;
 }
-/*
-node* read_csv_regions(node* root,const string& filename){
+
+node* read_csv_regions(node* root,const string& filename) {
     ifstream file(filename);
     string line;
 
@@ -86,17 +86,13 @@ node* read_csv_regions(node* root,const string& filename){
         string period, event_str, region,region2, cnt_str;
 
         // Parse the line
-        if (getline(ss, period, ',') &&
-            getline(ss, event_str, ',') &&
-            getline(ss, region, ',') &&
+        if (getline(ss, period, ',') && 
+            getline(ss, event_str, ',') && 
+            getline(ss, region, ',') && 
             getline(ss, cnt_str, ',')) {
             // Handle quoted region name (same as before)
 
             Region r;
-
-            if(region.front() == '"' && region.back() == '"') r.region = "Region not stated";
-            else r.region = region;
-
             r.period = period;
             r.event = (event_str == "Births");
             r.region = region;
@@ -107,21 +103,24 @@ node* read_csv_regions(node* root,const string& filename){
             } catch (const std::invalid_argument& e) {
                 continue; // Skip this line and continue to the next one
             }
-            if(r.event==1) root = insert_by_region(root, r);
+            if (r.event==1)root=insert_by_region(root,r);
         }
         else{
-            string waste;
-            Region r;
-            if(region.front() == '"'){
-                while(getline(file, line, ',')){
-                    break;
-                }
-            }
-            r.region = "Region not stated";
+            stringstream sss(linecopy);
+            getline(sss, period, ',') ;
+            getline(sss, event_str, ',') ; 
+            getline(sss, region, ',');
+             Region r;
             r.period = period;
             r.event = (event_str == "Births");
-            getline(file, cnt_str);
-            r.cnt= stoi(cnt_str);
+            r.region = region;
+           
+            getline(file, line);
+            stringstream s(line);
+            getline(s, region2, ','); // Read the region within quotes
+            getline(s, cnt_str, ',');
+           r.region.append(" ");
+           r.region.append(region2);
 
             // Convert cnt_str to integer (with error handling)
             try {
@@ -131,21 +130,22 @@ node* read_csv_regions(node* root,const string& filename){
                 continue; // Skip this line and continue to the next one
             }
 
-            if(r.event==1) root = insert_by_region(root, r);
+            if (r.event==1)root=insert_by_region(root,r);
         }
-
+       
     }
 
     file.close();
     return root;
-}*/
-node* read_csv_regions_avl(node* root,const string& filename) {
+}
+
+void read_csv_regions_htable(vector<node*>& htable,const string& filename) {
     ifstream file(filename);
     string line;
 
     if (!file.is_open()) {
         cerr << "Failed to open file: " << filename << endl;
-        return nullptr;
+        return ;
     }
 
     // Read each line from the file
@@ -155,17 +155,13 @@ node* read_csv_regions_avl(node* root,const string& filename) {
         string period, event_str, region,region2, cnt_str;
 
         // Parse the line
-        if (getline(ss, period, ',') &&
-            getline(ss, event_str, ',') &&
-            getline(ss, region, ',') &&
+        if (getline(ss, period, ',') && 
+            getline(ss, event_str, ',') && 
+            getline(ss, region, ',') && 
             getline(ss, cnt_str, ',')) {
             // Handle quoted region name (same as before)
 
             Region r;
-
-            if(region.front() == '"' && region.back() == '"') r.region = "Region not stated";
-            else r.region = region;
-
             r.period = period;
             r.event = (event_str == "Births");
             r.region = region;
@@ -176,21 +172,24 @@ node* read_csv_regions_avl(node* root,const string& filename) {
             } catch (const std::invalid_argument& e) {
                 continue; // Skip this line and continue to the next one
             }
-            if(r.event==1) root = insert_by_region_avl(root, r);
+            if (r.event==1) insert_htable(htable,r);
         }
         else{
-            string waste;
-            Region r;
-            if(region.front() == '"'){
-                while(getline(file, line, ',')){
-                    break;
-                }
-            }
-            r.region = "Region not stated";
+            stringstream sss(linecopy);
+            getline(sss, period, ',') ;
+            getline(sss, event_str, ',') ; 
+            getline(sss, region, ',');
+             Region r;
             r.period = period;
             r.event = (event_str == "Births");
-            getline(file, cnt_str);
-            r.cnt= stoi(cnt_str);
+            r.region = region;
+           
+            getline(file, line);
+            stringstream s(line);
+            getline(s, region2, ','); // Read the region within quotes
+            getline(s, cnt_str, ',');
+           r.region.append(" ");
+           r.region.append(region2);
 
             // Convert cnt_str to integer (with error handling)
             try {
@@ -200,11 +199,11 @@ node* read_csv_regions_avl(node* root,const string& filename) {
                 continue; // Skip this line and continue to the next one
             }
 
-            if(r.event==1) root = insert_by_region_avl(root, r);
+            if (r.event==1)insert_htable(htable,r);
         }
-
+       
     }
 
     file.close();
-    return root;
+    return ;
 }
