@@ -28,4 +28,4 @@ node* search_by_period(node* root,string period){
     else if(period < root->data.period) return search_by_period(root->left,period);
     //search right subtree
     else return search_by_period(root->right,period);
-}//
+}

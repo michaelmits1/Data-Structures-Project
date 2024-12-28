@@ -40,7 +40,7 @@ node* find_max(node* root){
    if (root->right==nullptr) return root ;
     //check if the node contains key
     return find_max(root->right);
-} //
+} 
 
 
 
